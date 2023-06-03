@@ -23,43 +23,47 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
+
     <EditText
+        android:id="@+id/txt_name"
         style="@style/Search"
-        android:id="@+id/txt_buscar"
         android:layout_width="188dp"
         android:layout_height="49dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+        android:hint="Username"
+        android:layout_marginStart="188dp"
+        android:layout_marginTop="84dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
         tools:ignore="MissingConstraints" />
 
-    <ImageButton
-        android:id="@+id/imageButton3"
-        style="@style/ButtonSet"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintStart_toEndOf="@+id/txt_buscar"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:srcCompat="@drawable/round_tune"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <Button
-
-        android:id="@+id/button"
-        style="@style/ButtonCancel"
-        android:layout_width="90dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="24dp"
-        android:text="Button"
-        app:layout_constraintStart_toEndOf="@+id/txt_buscar"
+    <EditText
+        android:id="@+id/txt_pass"
+        style="@style/Search"
+        android:layout_width="188dp"
+        android:layout_height="49dp"
+        android:hint="Password"
+        android:layout_marginStart="188dp"
+        android:layout_marginTop="164dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
         tools:ignore="MissingConstraints" />
 
-<!--    <Button-->
+    <Button
+        android:id="@+id/btn_login"
+        style="@style/ButtonCancel"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="336dp"
+        android:text="Ingresar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="MissingConstraints" />
+
+    <!--    <Button-->
 <!--        android:id="@+id/button"-->
 <!--        android:layout_width="148dp"-->
 <!--        android:layout_height="72dp"-->

@@ -4,10 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
 import com.example.dispositivosmoviles.databinding.ActivityMainBinding
+import com.example.dispositivosmoviles.logic.validator.LoginValidator
 import com.google.android.material.snackbar.Snackbar
 
 //clase que hereda de AppCompatActivity usando :
@@ -39,32 +37,33 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initClass() {
-        binding.button.setOnClickListener {
-            //binding.txtBuscar.text = "El codigo ejecuta correctamente"
+        binding.btnLogin.setOnClickListener {
 
-            //SUMA
+            val check = LoginValidator().checkLogin(
+                binding.txtName.text.toString(),
+                binding.txtPass.text.toString()
+            )
 
-            //Toast.makeText(this, "Este es un ejemplo", Toast.LENGTH_SHORT).show()
+            if (check) {
+                var intent = Intent(
+                    this,
+                    SecondActivity::class.java
+                )
 
-//            var f = Snackbar.make(
-//                binding.button,
-//                "Este es otro mensaje",
-//                Snackbar.LENGTH_SHORT
-//            )
-//            f.show()
-            //mediante la clase intent, indicamos que vaya de esta activity a la otra
-            //Activity que en este caso es Second
-            var intent = Intent(this, SecondActivity::class.java)
+                intent.putExtra(
+                    "var1",
+                    //binding.txtBuscar.text.toString()
+                    ""
+                )
 
-            //para enviar tipos de datos putExtra
-            //siempre pareja clave valor
-            intent.putExtra("var1", binding.txtBuscar.text.toString())
-//            intent.putExtra("var2", 2)
-            startActivity(intent)
-
-            //para agregar datos adicionales putExtra()=, enviamos pares de clave-valor y enviamos a la otra activity
-
+                intent.putExtra("var2", 2)
+                startActivity(intent)
+            } else {
+                Snackbar.make(
+                    binding.textView2, "Usuario o contraseña inválidos",
+                    Snackbar.LENGTH_LONG
+                ).show()
+            }
         }
     }
-
 }
