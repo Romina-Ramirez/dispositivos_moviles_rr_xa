@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import com.example.aplicacionmovil.R
 import com.example.aplicacionmovil.databinding.ActivitySecondBinding
+import com.example.aplicacionmovil.ui.fragments.FirstFragment
 import com.google.android.material.snackbar.Snackbar
 import kotlin.math.log
 
@@ -53,12 +54,11 @@ class SecondActivity : AppCompatActivity() {
                     true
                 }
                 R.id.favoritos -> {
-                    var suma : Int = 0
-
-                    for (i in listOf(8,12,13)){
-                        suma += i
-                    }
-                    Snackbar.make(binding.vistaTexto,"La suma es $suma", Snackbar.LENGTH_LONG).show()
+                    val frag = FirstFragment()
+                    val transaction = supportFragmentManager.beginTransaction()
+                    transaction.add(binding.frmContainer.id, frag)
+                    transaction.addToBackStack(null)
+                    transaction.commit()
 
                     true
                 }

@@ -10,9 +10,11 @@
 
     <Button
         android:id="@+id/boton"
+        style="@style/boton"
         android:layout_width="183dp"
         android:layout_height="51dp"
-        android:layout_marginTop="164dp"
+        android:layout_marginTop="52dp"
+        android:backgroundTint="@color/twitter"
         android:fontFamily="@font/quicksand_bold"
         android:text="Button"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,18 +24,27 @@
 
     <TextView
         android:id="@+id/vistaTexto"
-        android:layout_width="334dp"
-        android:layout_height="187dp"
-        android:layout_marginTop="128dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:fontFamily="@font/quicksand_bold"
         android:text="Hola mundo"
         android:textAlignment="center"
         android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
+
+    <FrameLayout
+        android:id="@+id/frm_container"
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/boton"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -43,6 +54,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_navigation_menu" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
