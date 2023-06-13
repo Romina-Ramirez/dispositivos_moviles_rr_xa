@@ -38,4 +38,8 @@
         <item name="cornerRadius">10dp</item>
     </style>
 
+    <style name="activeIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@color/facebook</item>
+    </style>
+
 </resources>

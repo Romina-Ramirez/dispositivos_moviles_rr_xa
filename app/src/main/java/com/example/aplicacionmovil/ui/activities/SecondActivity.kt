@@ -9,12 +9,13 @@ import com.example.aplicacionmovil.databinding.ActivitySecondBinding
 import com.example.aplicacionmovil.ui.fragments.FirstFragment
 import com.example.aplicacionmovil.ui.fragments.SecondFragment
 import com.example.aplicacionmovil.ui.fragments.ThirdFragment
+import com.example.aplicacionmovil.ui.utilities.FragmentsManager
 import com.google.android.material.snackbar.Snackbar
 import kotlin.math.log
 
 class SecondActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivitySecondBinding
+    private lateinit var binding: ActivitySecondBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,41 +44,33 @@ class SecondActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+
         binding.bottomNavigation.setOnItemSelectedListener { item ->
-            when(item.itemId) {
+            when (item.itemId) {
                 R.id.inicio -> {
-                    val frag = SecondFragment()
-                    val transaction = supportFragmentManager.beginTransaction()
-                    transaction.add(binding.frmContainer.id, frag)
-                    transaction.addToBackStack(null)
-                    transaction.commit()
-
+                    FragmentsManager().replaceFragmet(supportFragmentManager, binding.frmContainer.id, SecondFragment())
                     true
                 }
+
                 R.id.favoritos -> {
-                    val frag = FirstFragment()
-                    val transaction = supportFragmentManager.beginTransaction()
-                    transaction.add(binding.frmContainer.id, frag)
-                    transaction.addToBackStack(null)
-                    transaction.commit()
-
+                    FragmentsManager().replaceFragmet(supportFragmentManager, binding.frmContainer.id, FirstFragment())
                     true
                 }
+
                 R.id.apis -> {
-                    val frag = ThirdFragment()
-                    val transaction = supportFragmentManager.beginTransaction()
-                    transaction.add(binding.frmContainer.id, frag)
-                    transaction.addToBackStack(null)
-                    transaction.commit()
 
+                    FragmentsManager().replaceFragmet(supportFragmentManager, binding.frmContainer.id, ThirdFragment())
                     true
                 }
+
                 else -> false
             }
         }
 
     }
 
-
+    override fun onBackPressed() {
+        super.onBackPressed()
+    }
 
 }
