@@ -37,7 +37,7 @@ class SecondActivity : AppCompatActivity() {
 //            name = it?.getString("var1")!!
 //        }
 //        Log.d("UCE","Hola ${name}")
-        binding.vistaTexto.text = "Bienvenidos " + name.toString()
+        //binding.vistaTexto.text = "Bienvenidos " + name.toString()
 
         binding.boton.setOnClickListener {
             var intent = Intent(this, MainActivity::class.java)

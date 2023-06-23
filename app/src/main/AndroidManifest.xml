@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+    <!-- 3 tipos de permisos: 2)no necesitan ser declarados o admitidos por el usuario(acceso a internet), -->
+    <!-- 2)permisos de nivel medio (acceso a imagenes), 3)permisos peligrosos -->
+    <!-- acceso a ubicacionç, camara, microfono -->
+    <!-- para el permiso de acceso a internet -->
+    <uses-permission android:name="android.permission.INTERNET" />
 
-<!--    3 tipos de permisos: 2)no necesitan ser declarados o admitidos por el usuario(acceso a internet),-->
-<!--    2)permisos de nivel medio (acceso a imagenes), 3)permisos peligrosos-->
-<!--    acceso a ubicacionç, camara, microfono-->
-<!--    para el permiso de acceso a internet-->
-    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -17,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AplicacionMovil"
         tools:targetApi="31">
+        <activity
+            android:name=".ui.activities.DetailsMarvelItem"
+            android:exported="false" />
         <activity
             android:name=".ui.activities.MainActivity"
             android:exported="false" />

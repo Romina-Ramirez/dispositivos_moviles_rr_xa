@@ -1,5 +1,6 @@
 package com.example.aplicacionmovil.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,8 +10,11 @@ import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.aplicacionmovil.R
+import com.example.aplicacionmovil.data.marvel.MarvelChars
 import com.example.aplicacionmovil.databinding.FragmentSecondBinding
 import com.example.aplicacionmovil.logic.validator.ListItems
+import com.example.aplicacionmovil.ui.activities.DetailsMarvelItem
+import com.example.aplicacionmovil.ui.activities.MainActivity
 import com.example.aplicacionmovil.ui.adapters.MarvelAdapter
 
 class SecondFragment : Fragment() {
@@ -41,7 +45,27 @@ class SecondFragment : Fragment() {
             ArrayAdapter<String>(requireActivity(), R.layout.simple_layout, names)
         binding.spinner.adapter = adapter
         //binding.listview.adapter = adapter
-        val rvAdapter = MarvelAdapter(ListItems().returnMarveelChars())
+        chargeDataRV()
+
+        binding.rvSwipe.setOnRefreshListener {
+            chargeDataRV()
+            binding.rvSwipe.isRefreshing = false
+        }
+
+    }
+
+    fun sendMarvelItem(item: MarvelChars) {
+        val i = Intent(requireActivity(), DetailsMarvelItem::class.java)
+        i.putExtra("name", item)
+        startActivity(i)
+    }
+
+    fun chargeDataRV() {
+        val rvAdapter = MarvelAdapter(
+            ListItems().returnMarveelChars()
+        )
+        { sendMarvelItem(it) }
+
         val rvMarvel = binding.rvMarvelChars
         rvMarvel.adapter = rvAdapter
         rvMarvel.layoutManager = LinearLayoutManager(
@@ -49,8 +73,6 @@ class SecondFragment : Fragment() {
             LinearLayoutManager.VERTICAL,
             false
         ) //false en orden del listado u true al reves
-
     }
-
 
 }
