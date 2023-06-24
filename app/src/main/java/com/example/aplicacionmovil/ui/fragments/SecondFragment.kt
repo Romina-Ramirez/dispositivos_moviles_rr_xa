@@ -8,14 +8,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.aplicacionmovil.R
 import com.example.aplicacionmovil.data.marvel.MarvelChars
 import com.example.aplicacionmovil.databinding.FragmentSecondBinding
+import com.example.aplicacionmovil.logic.jikanLogic.JikanAnimeLogic
 import com.example.aplicacionmovil.logic.validator.ListItems
 import com.example.aplicacionmovil.ui.activities.DetailsMarvelItem
 import com.example.aplicacionmovil.ui.activities.MainActivity
 import com.example.aplicacionmovil.ui.adapters.MarvelAdapter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SecondFragment : Fragment() {
 
@@ -61,18 +66,26 @@ class SecondFragment : Fragment() {
     }
 
     fun chargeDataRV() {
-        val rvAdapter = MarvelAdapter(
-            ListItems().returnMarveelChars()
-        )
-        { sendMarvelItem(it) }
+        lifecycleScope.launch(Dispatchers.IO) {
 
-        val rvMarvel = binding.rvMarvelChars
-        rvMarvel.adapter = rvAdapter
-        rvMarvel.layoutManager = LinearLayoutManager(
-            requireActivity(),
-            LinearLayoutManager.VERTICAL,
-            false
-        ) //false en orden del listado u true al reves
+            val rvAdapter = MarvelAdapter(
+                JikanAnimeLogic().getAllAnimes()
+            )
+            { sendMarvelItem(it) }
+
+            withContext(Dispatchers.Main) {
+                with(binding.rvMarvelChars) {
+                    this.adapter = rvAdapter
+                    this.layoutManager = LinearLayoutManager(
+                        requireActivity(),
+                        LinearLayoutManager.VERTICAL,
+                        false
+                    )
+                }
+            }
+
+            //false en orden del listado u true al reves
+        }
     }
 
 }
