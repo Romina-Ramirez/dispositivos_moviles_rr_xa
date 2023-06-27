@@ -7,7 +7,7 @@ import android.os.Bundle
 import com.example.aplicacionmovil.databinding.ActivityMainBinding
 import com.example.aplicacionmovil.logic.validator.LoginValidator
 import com.google.android.material.snackbar.Snackbar
-
+//main
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
