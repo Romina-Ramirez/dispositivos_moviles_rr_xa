@@ -14,6 +14,7 @@ import com.example.aplicacionmovil.R
 import com.example.aplicacionmovil.data.marvel.MarvelChars
 import com.example.aplicacionmovil.databinding.FragmentSecondBinding
 import com.example.aplicacionmovil.logic.jikanLogic.JikanAnimeLogic
+import com.example.aplicacionmovil.logic.marvelLogic.MarvelCharactersLogic
 import com.example.aplicacionmovil.logic.validator.ListItems
 import com.example.aplicacionmovil.ui.activities.DetailsMarvelItem
 import com.example.aplicacionmovil.ui.activities.MainActivity
@@ -69,7 +70,7 @@ class SecondFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.IO) {
 
             val rvAdapter = MarvelAdapter(
-                JikanAnimeLogic().getAllAnimes()
+                MarvelCharactersLogic().getMarvelChars("cap", 5)
             )
             { sendMarvelItem(it) }
 
