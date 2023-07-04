@@ -64,5 +64,11 @@ class MarvelAdapter(
         notifyDataSetChanged()
     }
 
+    //en este metodo no se suman los items nuevos a los anteriores, se remplaza todo
+    fun replaceListItems(newItems: List<MarvelChars>){
+        this.items = newItems //agrega a la lista los nuevos elementos
+        notifyDataSetChanged()
+    }
+
 
 }

@@ -2,12 +2,14 @@ package com.example.aplicacionmovil.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -29,6 +31,9 @@ class SecondFragment : Fragment() {
     private  var rvAdapter: MarvelAdapter = MarvelAdapter { sendMarvelItem(it) }
     private lateinit var binding: FragmentSecondBinding
     private lateinit var lmanager: LinearLayoutManager
+
+    private var page = 1
+    private lateinit var marvelCharsItems: MutableList<MarvelChars>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,10 +60,10 @@ class SecondFragment : Fragment() {
         val adapter =
             ArrayAdapter<String>(requireActivity(), R.layout.simple_layout, names)
         binding.spinner.adapter = adapter
-        chargeDataRV("cap")
+        chargeDataRV(10)
 
         binding.rvSwipe.setOnRefreshListener {
-            chargeDataRV("cap")
+            chargeDataRV(10)
             binding.rvSwipe.isRefreshing = false
         }
 
@@ -77,7 +82,7 @@ class SecondFragment : Fragment() {
 
                     //necesitamos comprobar si el total es mayor igual que los elementos que han pasado entonces ncesitamos actualizar ya que estamos al final de la lista
                     if ((v + p) >= t) {
-                        chargeDataRV("spider")
+                        chargeDataRV(10)
                         lifecycleScope.launch((Dispatchers.IO)) {
                             val newItems = JikanAnimeLogic().getAllAnimes()
                             withContext(Dispatchers.Main) {
@@ -88,6 +93,13 @@ class SecondFragment : Fragment() {
                 }
             }
         })
+
+        binding.txtFilter.addTextChangedListener{filteredText ->
+            val newItems = marvelCharsItems.filter {
+                    items -> items.name.contains(filteredText.toString())
+            }
+            rvAdapter.replaceListItems(newItems)
+        }
 
     }
 
@@ -110,8 +122,10 @@ class SecondFragment : Fragment() {
         }
     }
 
-    fun chargeDataRV(search: String) {
+    fun chargeDataRV(pos: Int) {
         lifecycleScope.launch(Dispatchers.IO) {
+
+            var MarvelCharsItems = MarvelCharactersLogic().getMarvelChars("spider", page*2)
 
             rvAdapter.items =JikanAnimeLogic().getAllAnimes()
             withContext(Dispatchers.Main) {
@@ -123,8 +137,10 @@ class SecondFragment : Fragment() {
                         false
                     )
                 }
+                lmanager.scrollToPositionWithOffset(pos, 10)
             }
         }
+        page++
     }
 
 }
