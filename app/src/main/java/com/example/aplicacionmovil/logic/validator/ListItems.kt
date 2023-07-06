@@ -1,6 +1,6 @@
 package com.example.aplicacionmovil.logic.validator
 
-import com.example.aplicacionmovil.data.marvel.MarvelChars
+import com.example.aplicacionmovil.logic.data.MarvelChars
 
 class ListItems {
 

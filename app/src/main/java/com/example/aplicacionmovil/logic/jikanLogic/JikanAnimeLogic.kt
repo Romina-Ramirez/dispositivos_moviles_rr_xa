@@ -2,14 +2,18 @@ package com.example.aplicacionmovil.logic.jikanLogic
 
 import com.example.aplicacionmovil.data.converters.ApiConnection
 import com.example.aplicacionmovil.data.endPoints.JikanEndpoint
-import com.example.aplicacionmovil.data.marvel.MarvelChars
+import com.example.aplicacionmovil.logic.data.MarvelChars
 
 class JikanAnimeLogic {
 
     suspend fun getAllAnimes(): List<MarvelChars> {
-        var call = ApiConnection.getJcanConnnection() //llamamos al endpoint base
-        val response = call.create(JikanEndpoint::class.java).getAllAnimes() //endpoint base al especifico
         var itemList = arrayListOf<MarvelChars>()
+
+        var response = ApiConnection.getService(
+            ApiConnection.typeApi.Jikan,
+            JikanEndpoint::class.java
+        ).getAllAnimes() //endpoint base al especifico
+
         if (response.isSuccessful) {
             response.body()!!.data.forEach {
                 val m = MarvelChars(
