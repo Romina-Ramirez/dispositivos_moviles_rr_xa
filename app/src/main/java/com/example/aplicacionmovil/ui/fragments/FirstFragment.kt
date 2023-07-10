@@ -29,34 +29,39 @@ class FirstFragment : Fragment() {
     private lateinit var binding: FragmentFirstBinding
     private lateinit var gManager: GridLayoutManager
     private lateinit var lmanager: LinearLayoutManager
-    private var rvBuscadorAdapter: MarvelBuscadorAdapter =
+    private var rvAdapter: MarvelBuscadorAdapter =
         MarvelBuscadorAdapter()
 
     private var marvelCharsItems: MutableList<MarvelChars> = mutableListOf<MarvelChars>()
 
+
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = FragmentFirstBinding.inflate(layoutInflater, container, false)
 
-        binding = FragmentFirstBinding.inflate(
-            layoutInflater,
-            container,
+        lmanager = LinearLayoutManager(
+            requireActivity(),
+            LinearLayoutManager.VERTICAL,
             false
         )
 
-        lmanager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+
         gManager = GridLayoutManager(requireActivity(), 2)
+
         return binding.root
     }
 
     override fun onStart() {
         super.onStart()
-//        chargeDataRV()
+        chargeDataRV()
 //        binding.rvSwipe.setOnRefreshListener {
 //            chargeDataRV()
 //            binding.rvSwipe.isRefreshing = false
 //        }
+//        //Para cargar mas contenido
 //        binding.rvMarvelChars.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 //            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
 //                super.onScrolled(
@@ -64,88 +69,71 @@ class FirstFragment : Fragment() {
 //                    dx,
 //                    dy
 //                ) //dy es para el scroll de abajo y dx es de izquierda a derech para buscar elementos
-//                val v = lmanager.childCount  //cuantos elementos han pasado
-//                val p = lmanager.findFirstVisibleItemPosition() //posicion actual
-//                val t = lmanager.itemCount //cuantos tengo en total
+//
 //                if (dy > 0) {
+//                    val v = lmanager.childCount  //cuantos elementos han pasado
+//                    val p = lmanager.findFirstVisibleItemPosition() //posicion actual
+//                    val t = lmanager.itemCount //cuantos tengo en total
+//
 //                    //necesitamos comprobar si el total es mayor igual que los elementos que han pasado entonces ncesitamos actualizar ya que estamos al final de la lista
 //                    if ((v + p) >= t) {
 //                        chargeDataRV()
 //                        lifecycleScope.launch((Dispatchers.IO)) {
-//                            val newItems = MarvelCharactersLogic().getMarvelChars("spider", 10)
+//                            val newItems = MarvelLogic().getAllMarvelChars(0, 99)
 //                            withContext(Dispatchers.Main) {
-//                                rvBuscadorAdapter.updateListItems(newItems)
+//                                rvAdapter.updateListItems(newItems)
 //                            }
 //                        }
 //                    }
 //                }
 //            }
+//
+//
 //        })
 
         binding.txtFilter.addTextChangedListener { filteredText ->
-
-            if (filteredText.toString().isEmpty()) {
-                val newItems = marvelCharsItems.filter { items ->
-                    items.name.lowercase().contains(filteredText.toString().lowercase())
-
-                }
-                rvBuscadorAdapter.replaceListItems(newItems)
-                chargeDataNoneRV()
+            if (filteredText.toString().isNullOrEmpty()) {
+                chargeDataRVVacios()
             } else {
-                chargeDataRV()
+                if (rvAdapter.items.isEmpty()) {
+                    chargeDataRV()
+                }
+
                 val newItems = marvelCharsItems.filter { items ->
                     items.name.lowercase().contains(filteredText.toString().lowercase())
-
                 }
-//                chargeDataRV()
-                rvBuscadorAdapter.replaceListItems(newItems)
+                rvAdapter.replaceListItems(newItems)
                 binding.rvMarvelChars.apply {
-                    this.adapter = rvBuscadorAdapter
+                    this.adapter = rvAdapter
                     this.layoutManager = gManager
                 }
             }
-
         }
 
     }
 
-     fun chargeDataRV() {
+
+    fun chargeDataRV() {
+
+
         lifecycleScope.launch(Dispatchers.Main) {
+
             marvelCharsItems = withContext(Dispatchers.IO) {
-                return@withContext (MarvelCharactersLogic().getAllMarvelChars(
-                    0,
-                    100
-                ))
+                return@withContext (MarvelCharactersLogic().getAllMarvelChars(0, 99))
             }
 
-            rvBuscadorAdapter.items = marvelCharsItems
 
-            binding.rvMarvelChars.apply {
-                this.adapter = rvBuscadorAdapter
-                this.layoutManager = gManager
-            }
         }
-    }
 
-    fun chargeDataNoneRV() {
-        lifecycleScope.launch(Dispatchers.Main) {
-            marvelCharsItems = withContext(Dispatchers.IO) {
-                return@withContext (MarvelCharactersLogic().getAllMarvelChars(
-                    0,
-                    0
-                ))
-            }
 
-            rvBuscadorAdapter.items = marvelCharsItems
-
-            binding.rvMarvelChars.apply {
-                this.adapter = rvBuscadorAdapter
-                this.layoutManager = gManager
-            }
-        }
     }
 
 
+    fun chargeDataRVVacios() {
+        rvAdapter.items = listOf<MarvelChars>()
 
-
+        binding.rvMarvelChars.apply {
+            this.adapter = rvAdapter
+        }
+    }
 }
