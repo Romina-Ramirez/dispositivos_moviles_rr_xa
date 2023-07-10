@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.aplicacionmovil.R
@@ -27,6 +28,7 @@ class SecondFragment : Fragment() {
     private var rvAdapter: MarvelAdapter = MarvelAdapter { sendMarvelItem(it) }
     private lateinit var binding: FragmentSecondBinding
     private lateinit var lmanager: LinearLayoutManager
+    private lateinit var gManager: GridLayoutManager
 
     private var marvelCharsItems: MutableList<MarvelChars> = mutableListOf<MarvelChars>()
 
@@ -43,6 +45,7 @@ class SecondFragment : Fragment() {
 
         lmanager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
 
+        gManager = GridLayoutManager(requireActivity(), 2)
         return binding.root
     }
 
@@ -69,17 +72,15 @@ class SecondFragment : Fragment() {
                     dx,
                     dy
                 ) //dy es para el scroll de abajo y dx es de izquierda a derech para buscar elementos
-
+                val v = lmanager.childCount  //cuantos elementos han pasado
+                val p = lmanager.findFirstVisibleItemPosition() //posicion actual
+                val t = lmanager.itemCount //cuantos tengo en total
                 if (dy > 0) {
-                    val v = lmanager.childCount  //cuantos elementos han pasado
-                    val p = lmanager.findFirstVisibleItemPosition() //posicion actual
-                    val t = lmanager.itemCount //cuantos tengo en total
-
                     //necesitamos comprobar si el total es mayor igual que los elementos que han pasado entonces ncesitamos actualizar ya que estamos al final de la lista
                     if ((v + p) >= t) {
                         chargeDataRV()
                         lifecycleScope.launch((Dispatchers.IO)) {
-                            val newItems = JikanAnimeLogic().getAllAnimes()
+                            val newItems = MarvelCharactersLogic().getAllMarvelChars(0, 99)
                             withContext(Dispatchers.Main) {
                                 rvAdapter.updateListItems(newItems)
                             }
@@ -104,25 +105,25 @@ class SecondFragment : Fragment() {
         startActivity(i)
     }
 
-    fun corrottine() {
-        lifecycleScope.launch(Dispatchers.Main) {
-            var name = "Xavier"
-
-            name = withContext(Dispatchers.IO) {
-                name = "Romi"
-                return@withContext name
-            }
-
-            binding.cardView.radius
-        }
-    }
+//    fun corrottine() {
+//        lifecycleScope.launch(Dispatchers.Main) {
+//            var name = "Xavier"
+//
+//            name = withContext(Dispatchers.IO) {
+//                name = "Romi"
+//                return@withContext name
+//            }
+//
+//            binding.cardView.radius
+//        }
+//    }
 
     private fun chargeDataRV() {
         lifecycleScope.launch(Dispatchers.Main) {
             marvelCharsItems = withContext(Dispatchers.IO) {
-                return@withContext (MarvelCharactersLogic().getMarvelChars(
-                    "spider",
-                    20
+                return@withContext (MarvelCharactersLogic().getAllMarvelChars(
+                    0,
+                    99
                 ))
             }
 
@@ -130,7 +131,7 @@ class SecondFragment : Fragment() {
 
             binding.rvMarvelChars.apply {
                 this.adapter = rvAdapter
-                this.layoutManager = lmanager
+                this.layoutManager = gManager
             }
         }
     }

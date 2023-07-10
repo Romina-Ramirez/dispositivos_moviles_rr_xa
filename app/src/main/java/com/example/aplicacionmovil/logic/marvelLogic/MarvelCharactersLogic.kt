@@ -2,6 +2,7 @@ package com.example.aplicacionmovil.logic.marvelLogic
 
 import com.example.aplicacionmovil.data.converters.ApiConnection
 import com.example.aplicacionmovil.data.endPoints.MarvelEndpoint
+import com.example.aplicacionmovil.data.entities.marvel.characters.getMarvelChar
 import com.example.aplicacionmovil.logic.data.MarvelChars
 
 class MarvelCharactersLogic {
@@ -16,16 +17,24 @@ class MarvelCharactersLogic {
 
         if (response.isSuccessful) {
             response.body()!!.data.results.forEach {
-                var comic: String = "No available"
-                if (it.comics.items.size > 0) {
-                    comic = it.comics.items[0].name
-                }
-                val m = MarvelChars(
-                    it.id,
-                    it.name,
-                    comic,
-                    it.thumbnail.path + "." + it.thumbnail.extension
-                )
+                val m = it.getMarvelChar()
+                itemList.add(m)
+            }
+        }
+        return itemList
+    }
+
+    suspend fun getAllMarvelChars(offset: Int, limit: Int): ArrayList<MarvelChars> {
+        var itemList = arrayListOf<MarvelChars>()
+
+        var response = ApiConnection.getService(
+            ApiConnection.typeApi.Marvel,
+            MarvelEndpoint::class.java
+        ).getAllMarvelChars(offset, limit)
+
+        if (response.isSuccessful) {
+            response.body()!!.data.results.forEach {
+                val m = it.getMarvelChar()
                 itemList.add(m)
             }
         }
