@@ -52,13 +52,13 @@ class SecondFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        val names = arrayListOf<String>(
-            "Carlos", "Xavier", "Andres",
-            "Pepe", "Mariano", "Rosa"
-        )
-        val adapter =
-            ArrayAdapter<String>(requireActivity(), R.layout.simple_layout, names)
-        binding.spinner.adapter = adapter
+//        val names = arrayListOf<String>(
+//            "Carlos", "Xavier", "Andres",
+//            "Pepe", "Mariano", "Rosa"
+//        )
+//        val adapter =
+//            ArrayAdapter<String>(requireActivity(), R.layout.simple_layout, names)
+//        binding.spinner.adapter = adapter
         chargeDataRVDB()
 
         binding.rvSwipe.setOnRefreshListener {
@@ -91,12 +91,12 @@ class SecondFragment : Fragment() {
             }
         })
 
-        binding.txtFilter.addTextChangedListener { filteredText ->
-            val newItems = marvelCharsItems.filter { items ->
-                items.name.lowercase().contains(filteredText.toString().lowercase())
-            }
-            rvAdapter.replaceListItems(newItems)
-        }
+//        binding.txtFilter.addTextChangedListener { filteredText ->
+//            val newItems = marvelCharsItems.filter { items ->
+//                items.name.lowercase().contains(filteredText.toString().lowercase())
+//            }
+//            rvAdapter.replaceListItems(newItems)
+//        }
 
     }
 

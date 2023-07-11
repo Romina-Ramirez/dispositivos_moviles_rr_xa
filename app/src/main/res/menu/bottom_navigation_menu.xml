@@ -6,17 +6,17 @@
         android:id="@+id/inicio"
         android:enabled="true"
         android:icon="@drawable/home_icon"
-        android:title="@string/menu_inicio"
+        android:title="@string/menu_uno"
         android:visible="true"/>
     <item
         android:id="@+id/favoritos"
-        android:title="@string/menu_favoritos"
+        android:title="@string/menu_dos"
         android:enabled="true"
-        android:icon="@drawable/star_icon"
+        android:icon="@drawable/search"
         android:visible="true"/>
     <item
         android:id="@+id/apis"
-        android:title="Apis"
+        android:title="@string/menu_tres"
         android:enabled="true"
         android:icon="@drawable/phone_icon"
         android:visible="true"/>

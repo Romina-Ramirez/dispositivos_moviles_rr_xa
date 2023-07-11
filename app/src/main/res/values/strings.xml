@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">AplicacionMovil</string>
-    <string name="menu_favoritos">Buscar</string>
-    <string name="menu_inicio">Inicio</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="menu_dos">Buscar</string>
+    <string name="menu_uno">Inicio</string>
+    <string name="menu_tres">Apis</string>
+    <string name="presentacion">Te presentamos la lista completa de los personajes de Marvel.</string>
+    <string name="busqueda">Encuentra a tu personaje.</string>
 </resources>

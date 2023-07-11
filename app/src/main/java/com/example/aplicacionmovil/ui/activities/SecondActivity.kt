@@ -43,10 +43,10 @@ class SecondActivity : AppCompatActivity() {
 //        Log.d("UCE","Hola ${name}")
         //binding.vistaTexto.text = "Bienvenidos " + name.toString()
 
-        binding.boton.setOnClickListener {
-            var intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }
+//        binding.boton.setOnClickListener {
+//            var intent = Intent(this, MainActivity::class.java)
+//            startActivity(intent)
+//        }
 
 
         binding.bottomNavigation.setOnItemSelectedListener { item ->

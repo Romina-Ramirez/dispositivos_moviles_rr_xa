@@ -1,8 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.AplicacionMovil" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+         <item name="colorPrimary">@color/marvelOsc</item>
     </style>
 
     <style name="Theme.AplicacionMovil" parent="Base.Theme.AplicacionMovil" />
@@ -39,8 +38,7 @@
     </style>
 
     <style name="activeIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
-        <item name="android:color">@color/facebook</item>
+        <item name="android:color">@color/marvel</item>
     </style>
-
 
 </resources>

@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gris_azulado"
+    android:background="@color/black"
     tools:context=".ui.fragments.FirstFragment">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="348dp"
-        android:layout_height="212dp"
-        android:layout_marginTop="50dp"
+        android:layout_width="347dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="30dp"
         android:elevation="10dp"
         app:cardCornerRadius="12dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,27 +22,29 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@color/marvel">
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="161dp"
-                android:layout_height="116dp"
-                android:layout_marginTop="4dp"
-                android:src="@drawable/baseline_stars_24"
+                android:layout_width="252dp"
+                android:layout_height="113dp"
+                android:layout_marginTop="24dp"
+                android:src="@drawable/marvel_pers"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textView"
-                android:layout_width="276dp"
-                android:layout_height="66dp"
-                android:layout_marginTop="12dp"
-                android:fontFamily="@font/fontdiner_swanky"
-                android:text="Encuentra a tu personaje."
+                android:layout_width="277dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/quicksand_medium"
+                android:text="@string/busqueda"
                 android:textAlignment="center"
-                android:textSize="24sp"
+                android:textColor="@color/black"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView" />
@@ -85,6 +87,8 @@
         android:singleLine="true"
         android:textColor="@color/white"
         android:textSize="14sp"
+        android:hint="Buscar..."
+        android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView"
