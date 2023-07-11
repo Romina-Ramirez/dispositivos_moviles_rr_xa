@@ -9,6 +9,7 @@ import com.example.aplicacionmovil.databinding.ActivitySecondBinding
 import com.example.aplicacionmovil.ui.fragments.FirstFragment
 import com.example.aplicacionmovil.ui.fragments.SecondFragment
 import com.example.aplicacionmovil.ui.fragments.ThirdFragment
+import com.example.aplicacionmovil.ui.utilities.AplicacionMovil
 import com.example.aplicacionmovil.ui.utilities.FragmentsManager
 import com.google.android.material.snackbar.Snackbar
 import kotlin.math.log
@@ -29,6 +30,9 @@ class SecondActivity : AppCompatActivity() {
         super.onStart()
         Log.d("UCE", "Entrando a Start")
         initClass()
+        //base de datos instanciada del aplicacionMovilkt
+        val db = AplicacionMovil.getdbInstancs()
+//        db.marvelDao().
     }
 
     private fun initClass() {

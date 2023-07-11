@@ -19,6 +19,7 @@ import com.example.aplicacionmovil.logic.jikanLogic.JikanAnimeLogic
 import com.example.aplicacionmovil.logic.marvelLogic.MarvelCharactersLogic
 import com.example.aplicacionmovil.ui.activities.DetailsMarvelItem
 import com.example.aplicacionmovil.ui.adapters.MarvelAdapter
+import com.example.aplicacionmovil.ui.utilities.AplicacionMovil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -58,10 +59,10 @@ class SecondFragment : Fragment() {
         val adapter =
             ArrayAdapter<String>(requireActivity(), R.layout.simple_layout, names)
         binding.spinner.adapter = adapter
-        chargeDataRV()
+        chargeDataRVDB()
 
         binding.rvSwipe.setOnRefreshListener {
-            chargeDataRV()
+            chargeDataRVDB()
             binding.rvSwipe.isRefreshing = false
         }
 
@@ -78,7 +79,7 @@ class SecondFragment : Fragment() {
                 if (dy > 0) {
                     //necesitamos comprobar si el total es mayor igual que los elementos que han pasado entonces ncesitamos actualizar ya que estamos al final de la lista
                     if ((v + p) >= t) {
-                        chargeDataRV()
+                        chargeDataRVDB()
                         lifecycleScope.launch((Dispatchers.IO)) {
                             val newItems = MarvelCharactersLogic().getAllMarvelChars(0, 99)
                             withContext(Dispatchers.Main) {
@@ -118,7 +119,7 @@ class SecondFragment : Fragment() {
 //        }
 //    }
 
-    private fun chargeDataRV() {
+    private fun chargeDataRVAPI() {
         lifecycleScope.launch(Dispatchers.Main) {
             marvelCharsItems = withContext(Dispatchers.IO) {
                 return@withContext (MarvelCharactersLogic().getAllMarvelChars(
@@ -136,4 +137,28 @@ class SecondFragment : Fragment() {
         }
     }
 
+    private fun chargeDataRVDB() {
+        lifecycleScope.launch(Dispatchers.Main) {
+            marvelCharsItems = withContext(Dispatchers.IO) {
+                var items = MarvelCharactersLogic()
+                    .getAllMarvelChardDB()
+                    .toMutableList()
+
+                if (items.isEmpty()) {
+                    items = (MarvelCharactersLogic().getAllMarvelChars(
+                        0,
+                        99
+                    ))
+                    MarvelCharactersLogic().insertMarvelChartstoDB(items)
+                }
+                return@withContext items
+            }
+        }
+        rvAdapter.items = marvelCharsItems
+
+        binding.rvMarvelChars.apply {
+            this.adapter = rvAdapter
+            this.layoutManager = gManager
+        }
+    }
 }
