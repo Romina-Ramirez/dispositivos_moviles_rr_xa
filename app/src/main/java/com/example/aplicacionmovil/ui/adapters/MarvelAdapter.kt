@@ -44,7 +44,6 @@ class MarvelAdapter(
                         "Se agrego a favoritos",
                         Snackbar.LENGTH_SHORT
                     ).show()
-
                 }else{
                     Snackbar.make(
                         binding.imgMarvel,

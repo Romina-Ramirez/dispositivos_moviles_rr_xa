@@ -27,7 +27,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class SecondFragment : Fragment() {
-
     private var rvAdapter: MarvelAdapter = MarvelAdapter ({ sendMarvelItem(it) },{saveMarvelItem(it)})
     private lateinit var binding: FragmentSecondBinding
     private lateinit var lmanager: LinearLayoutManager
@@ -35,12 +34,11 @@ class SecondFragment : Fragment() {
     private val limit = 99
     private var offset = 0
     private var marvelCharsItems: MutableList<MarvelChars> = mutableListOf<MarvelChars>()
+    private var marvelCharsItemsDB: MutableList<MarvelChars> = mutableListOf<MarvelChars>()
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentSecondBinding.inflate(
-            layoutInflater, container, false)
+        binding = FragmentSecondBinding.inflate(layoutInflater, container, false)
         // Inflate the layout for this fragment
         lmanager = LinearLayoutManager(
             requireActivity(),
@@ -52,14 +50,7 @@ class SecondFragment : Fragment() {
     }
     override fun onStart() {
         super.onStart()
-        chargeDataRV(offset,limit)
-        lifecycleScope.launch((Dispatchers.IO)) {
-            val newItems = MarvelCharactersLogic().getAllMarvelChars(offset, limit)
-            withContext(Dispatchers.Main) {
-                rvAdapter.updateListItems(newItems)
-                this@SecondFragment.offset += limit
-            }
-        }
+        chargeDataRVInit(offset,limit)
         binding.rvSwipe.setOnRefreshListener {
             chargeDataRVInit(offset,limit)
             binding.rvSwipe.isRefreshing = false
@@ -78,7 +69,7 @@ class SecondFragment : Fragment() {
                     val t = lmanager.itemCount //cuantos tengo en total
                     //necesitamos comprobar si el total es mayor igual que los elementos que han pasado entonces ncesitamos actualizar ya que estamos al final de la lista
                     if ((v + p) >= t) {
-                        chargeDataRV(offset,limit)
+                        chargeDataRVInit(offset,limit)
                         lifecycleScope.launch((Dispatchers.IO)) {
                             val newItems = MarvelCharactersLogic().getAllMarvelChars(offset, limit)
                             withContext(Dispatchers.Main) {
@@ -91,30 +82,23 @@ class SecondFragment : Fragment() {
             }
         })
     }
-    fun corroutine() {
-        lifecycleScope.launch(Dispatchers.Main) {
-            var name = "Xavier"
-            name = withContext(Dispatchers.IO) {
-                name = "Xavi"
-                return@withContext name
-            }
-            binding.cardView.radius
-        }
-    }
     private fun sendMarvelItem(item: MarvelChars): Unit {
         val i = Intent(requireActivity(), DetailsMarvelItem::class.java)
         i.putExtra("name", item)
         startActivity(i)
     }
     private fun saveMarvelItem(item: MarvelChars): Boolean {
-        var booleano:Boolean=false
-        lifecycleScope.launch(Dispatchers.Main){
-            var result:Boolean=withContext(Dispatchers.IO){
-                return@withContext MarvelCharactersLogic().insertMarvelChartstoDB(listOf(item))
+        return if(item==null || marvelCharsItemsDB.contains(item)){
+            false
+        }else{
+            lifecycleScope.launch(Dispatchers.Main){
+                withContext(Dispatchers.IO){
+                    MarvelCharactersLogic().insertMarvelChartstoDB(listOf(item))
+                    marvelCharsItemsDB=MarvelCharactersLogic().getAllMarvelChardDB().toMutableList()
+                }
             }
-            booleano=result
+            true
         }
-        return booleano
     }
     fun chargeDataRV(limit: Int,offset: Int) {
         lifecycleScope.launch(Dispatchers.Main) {
@@ -122,7 +106,6 @@ class SecondFragment : Fragment() {
                 return@withContext (MarvelCharactersLogic().getAllMarvelChars(offset, limit))
             }
             rvAdapter.items = marvelCharsItems
-
             binding.rvMarvelChars.apply {
                 this.adapter = rvAdapter
                 this.layoutManager = gManager
@@ -130,12 +113,11 @@ class SecondFragment : Fragment() {
             this@SecondFragment.offset += limit
         }
     }
-
     fun chargeDataRVInit(offset: Int,limit: Int) {
         if (Metodos().isOnline(requireActivity())) {
             lifecycleScope.launch(Dispatchers.Main) {
                 marvelCharsItems = withContext(Dispatchers.IO) {
-                    return@withContext MarvelCharactersLogic().getInitChars(offset, limit)
+                    return@withContext (MarvelCharactersLogic().getAllMarvelChars(offset, limit))
                 }
                 rvAdapter.items = marvelCharsItems
                 binding.rvMarvelChars.apply {
@@ -151,6 +133,14 @@ class SecondFragment : Fragment() {
                 Snackbar.LENGTH_LONG
             )
                 .show()
+        }
+    }
+    override fun onResume() {
+        super.onResume()
+        lifecycleScope.launch(Dispatchers.Main){
+            withContext(Dispatchers.IO){
+                marvelCharsItemsDB=MarvelCharactersLogic().getAllMarvelChardDB().toMutableList()
+            }
         }
     }
 }
