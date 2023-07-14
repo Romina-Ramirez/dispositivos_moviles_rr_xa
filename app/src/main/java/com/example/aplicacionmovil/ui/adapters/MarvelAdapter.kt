@@ -10,7 +10,8 @@ import com.example.aplicacionmovil.databinding.MarvelCharactersBinding
 import com.squareup.picasso.Picasso
 
 class MarvelAdapter(
-    private var fnClick: (MarvelChars) -> Unit
+    private var fnClick: (MarvelChars) -> Unit,
+    private var fnSave : (MarvelChars) -> Boolean
 ) :
     RecyclerView.Adapter<MarvelAdapter.MarvelViewHolder>() {
 
@@ -22,7 +23,8 @@ class MarvelAdapter(
         //    solo modificamos el render
         fun render(
             item: MarvelChars,
-            fnClick: (MarvelChars) -> Unit
+            fnClick: (MarvelChars) -> Unit,
+            fnSave: (MarvelChars) -> Boolean
         ) {
             binding.textName.text = item.name
             binding.textComic.text = item.comic
@@ -30,9 +32,9 @@ class MarvelAdapter(
 
             itemView.setOnClickListener {
                 fnClick(item)
-//            Snackbar.make(binding.imgMarvel, item.name, Snackbar.LENGTH_SHORT).show()
-//            de una clase no se puede ir a un activity solo se puede de activity a otra activity
-//            basicamente no se puede hacer: val intent =  Intent()
+            }
+            binding.btnSave.setOnClickListener {
+                fnSave(item)
             }
         }
     }
@@ -51,7 +53,7 @@ class MarvelAdapter(
     }
 
     override fun onBindViewHolder(holder: MarvelAdapter.MarvelViewHolder, position: Int) {
-        holder.render(items[position], fnClick)
+        holder.render(items[position], fnClick, fnSave)
     }
 
     override fun getItemCount(): Int = items.size
@@ -66,6 +68,5 @@ class MarvelAdapter(
         this.items = newItems //agrega a la lista los nuevos elementos
         notifyDataSetChanged()
     }
-
 
 }

@@ -48,4 +48,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtMarvel"/>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="62dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="200dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtComic" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

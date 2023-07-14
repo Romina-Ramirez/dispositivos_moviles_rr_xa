@@ -5,6 +5,7 @@
     <!-- 2)permisos de nivel medio (acceso a imagenes), 3)permisos peligrosos -->
     <!-- acceso a ubicacionç, camara, microfono -->
     <!-- para el permiso de acceso a internet -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application

@@ -7,6 +7,8 @@ import com.example.aplicacionmovil.data.entities.marvel.characters.getMarvelChar
 import com.example.aplicacionmovil.logic.data.MarvelChars
 import com.example.aplicacionmovil.logic.data.getMarvelCharsDB
 import com.example.aplicacionmovil.ui.utilities.AplicacionMovil
+import java.lang.Exception
+import java.lang.RuntimeException
 
 class MarvelCharactersLogic {
 
@@ -44,26 +46,46 @@ class MarvelCharactersLogic {
         return itemList
     }
 
-    suspend fun getAllMarvelChardDB(): List<MarvelChars>{
-        val items : ArrayList<MarvelChars> =  arrayListOf()
+    suspend fun getAllMarvelChardDB(): List<MarvelChars> {
+        val items: ArrayList<MarvelChars> = arrayListOf()
         val items_aux = AplicacionMovil.getdbInstancs().marvelDao().getAllCharacters()
-        items_aux.forEach{
-            items.add(MarvelChars(
-                it.id, it.name, it.comic, it.image
-            )
+        items_aux.forEach {
+            items.add(
+                MarvelChars(
+                    it.id, it.name, it.comic, it.image
+                )
             )
         }
         return items
     }
 
-    suspend fun insertMarvelChartstoDB(items: List<MarvelChars>){
-        var itemsDB =  arrayListOf<MarvelCharsDB>()
-        items.forEach{
+    suspend fun getInitChars(limit: Int, offset: Int): MutableList<MarvelChars> {
+        var items = mutableListOf<MarvelChars>()
+        try {
+            items = MarvelCharactersLogic().getAllMarvelChardDB().toMutableList()
+
+            if (items.isEmpty()) {
+                items = MarvelCharactersLogic().getAllMarvelChars(offset, limit)
+                MarvelCharactersLogic().insertMarvelChartstoDB(items)
+            }
+            items
+        } catch (ex: Exception) {
+            throw RuntimeException(ex.message)
+        } finally {
+            return items
+        }
+    }
+
+    suspend fun insertMarvelChartstoDB(items: List<MarvelChars>): Boolean {
+        var itemsDB = arrayListOf<MarvelCharsDB>()
+        items.forEach {
             itemsDB.add(it.getMarvelCharsDB())
         }
         AplicacionMovil
             .getdbInstancs()
             .marvelDao()
             .insertMarvelChar(itemsDB)
+        return false
     }
+
 }
