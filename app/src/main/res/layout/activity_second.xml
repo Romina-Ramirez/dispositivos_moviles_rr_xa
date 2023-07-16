@@ -8,33 +8,6 @@
     android:background="@color/white"
     tools:context=".ui.activities.SecondActivity">
 
-    <!--    <TextView-->
-<!--        android:id="@+id/vistaTexto"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="4dp"-->
-<!--        android:fontFamily="@font/quicksand_bold"-->
-<!--        android:text="Hola mundo"-->
-<!--        android:textAlignment="center"-->
-<!--        android:textSize="40sp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.0"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        tools:ignore="MissingConstraints" />-->
-
-<!--    <Button-->
-<!--        android:id="@+id/boton"-->
-<!--        style="@style/boton"-->
-<!--        android:layout_width="183dp"-->
-<!--        android:layout_height="51dp"-->
-<!--        android:backgroundTint="@color/twitter"-->
-<!--        android:fontFamily="@font/quicksand_bold"-->
-<!--        android:text="Button"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        tools:ignore="MissingConstraints" />-->
-
     <FrameLayout
         android:id="@+id/frm_container"
         android:layout_width="match_parent"
@@ -49,10 +22,10 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
+        android:layout_height="80dp"
         app:itemActiveIndicatorStyle="@style/activeIndicator"
-        app:labelVisibilityMode="labeled"
         app:itemIconTint="@drawable/cambio_home"
-        android:layout_height="wrap_content"
+        app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

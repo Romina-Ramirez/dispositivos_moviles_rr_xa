@@ -5,56 +5,64 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context=".ui.activities.DetailsMarvelItem">
 
     <ImageView
         android:id="@+id/imageMarvel"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="317dp"
+        android:layout_height="383dp"
         android:layout_gravity="center"
-        android:alpha="0.7"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:scaleType="centerCrop"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.103" />
 
     <TextView
         android:id="@+id/txtMarvel"
         android:layout_width="370dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="232dp"
+        android:layout_marginTop="52dp"
         android:textAlignment="center"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="48sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageMarvel" />
 
     <TextView
         android:id="@+id/txtComic"
-        android:layout_width="273dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="40sp"
-        android:textStyle="bold"
+        android:layout_width="301dp"
+        android:layout_height="115dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtMarvel"/>
+        app:layout_constraintTop_toBottomOf="@+id/txtMarvel" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnFavoritos"
         android:layout_width="62dp"
         android:layout_height="62dp"
-        android:layout_marginTop="200dp"
+        app:tint="@color/white"
+        android:layout_marginTop="348dp"
+        android:hapticFeedbackEnabled="false"
 
+        android:src="@drawable/heart"
+        app:backgroundTint="#F88185"
+        app:ensureMinTouchTargetSize="false"
+        app:fabCustomSize="64dp"
+        app:fabSize="normal"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtComic" />
+        app:layout_constraintTop_toTopOf="@+id/imageMarvel"
+        app:maxImageSize="40dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
