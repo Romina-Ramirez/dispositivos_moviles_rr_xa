@@ -1,10 +1,15 @@
 package com.example.aplicacionmovil.ui.activities
 
 import android.annotation.SuppressLint
+import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult.*
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
@@ -72,6 +77,41 @@ class MainActivity : AppCompatActivity() {
                     Snackbar.LENGTH_LONG
                 ).show()
             }
+        }
+        //para que al darle clicl al boton facebook habra un link
+        binding.btnActionF.setOnClickListener {
+//            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("geo:-0.2006288, -78.5786066")) //o "link" o "tel:09987434
+            val intent = Intent(
+                Intent.ACTION_WEB_SEARCH
+            )
+            intent.setClassName(
+                "com.google.android.googlequicksearchbox",
+                "com.google.android.googlequicksearchbox.SearchActivity")
+            intent.putExtra(SearchManager.QUERY, "UCE")
+            startActivity(intent)
+        }
+
+        val appResulttLocal = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){resultActivity ->
+            when(resultActivity.resultCode){
+                RESULT_OK -> {Snackbar.make(binding.hola, "Resultado exitoso", Snackbar.LENGTH_LONG).show()}
+                RESULT_CANCELED -> {Log.d("UCE", "Resultado fallido")}
+                else -> {Log.d("UCE", "Resultado dudoso")}
+            }
+            //lo mismo pero mas barato
+//            if(resultActivity.resultCode == RESULT_OK){
+//
+//            }else{
+//                if(resultActivity.resultCode == RESULT_CANCELED){
+//
+//                }else{
+//
+//                }
+//            }
+
+        }
+        binding.btnActionT.setOnClickListener {
+            val resIntent =  Intent(this, ResultActivity::class.java)
+            appResulttLocal.launch(resIntent)
         }
     }
 
