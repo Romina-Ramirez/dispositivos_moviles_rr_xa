@@ -4,12 +4,10 @@ import android.annotation.SuppressLint
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult.*
+import android.speech.RecognizerIntent
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
@@ -19,8 +17,10 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.lifecycle.lifecycleScope
+import com.example.aplicacionmovil.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.Locale
 import java.util.UUID
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
@@ -78,7 +78,8 @@ class MainActivity : AppCompatActivity() {
                 ).show()
             }
         }
-        //para que al darle clicl al boton facebook habra un link
+
+        //para que al darle click al boton facebook habra un link
         binding.btnActionF.setOnClickListener {
 //            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("geo:-0.2006288, -78.5786066")) //o "link" o "tel:09987434
             val intent = Intent(
@@ -86,33 +87,103 @@ class MainActivity : AppCompatActivity() {
             )
             intent.setClassName(
                 "com.google.android.googlequicksearchbox",
-                "com.google.android.googlequicksearchbox.SearchActivity")
+                "com.google.android.googlequicksearchbox.SearchActivity"
+            )
             intent.putExtra(SearchManager.QUERY, "UCE")
             startActivity(intent)
         }
 
-        val appResulttLocal = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){resultActivity ->
-            when(resultActivity.resultCode){
-                RESULT_OK -> {Snackbar.make(binding.hola, "Resultado exitoso", Snackbar.LENGTH_LONG).show()}
-                RESULT_CANCELED -> {Log.d("UCE", "Resultado fallido")}
-                else -> {Log.d("UCE", "Resultado dudoso")}
+        val appResultLocal =
+            registerForActivityResult(StartActivityForResult()) { resultActivity ->
+
+                val sn = Snackbar.make(
+                    binding.hola,
+                    "",
+                    Snackbar.LENGTH_LONG
+                )
+
+                var message = when (resultActivity.resultCode) {
+                    RESULT_OK -> {
+                        sn.setBackgroundTint(resources.getColor(R.color.verde))
+                        resultActivity.data?.getStringExtra("result").orEmpty()
+                    }
+
+                    RESULT_CANCELED -> {
+                        sn.setBackgroundTint(resources.getColor(R.color.marvel))
+                        resultActivity.data?.getStringExtra("result").orEmpty()
+                    }
+
+                    else -> {
+                        "Dudoso"
+                    }
+                }
+                sn.setText(message)
+                sn.show()
+
             }
-            //lo mismo pero mas barato
-//            if(resultActivity.resultCode == RESULT_OK){
-//
-//            }else{
-//                if(resultActivity.resultCode == RESULT_CANCELED){
-//
-//                }else{
-//
-//                }
-//            }
+
+        val speechToText = registerForActivityResult(StartActivityForResult()){ activityResult ->
+
+            val sn = Snackbar.make(
+                binding.hola,
+                "",
+                Snackbar.LENGTH_LONG
+            )
+            var message = ""
+            when(activityResult.resultCode) {
+                RESULT_OK -> {
+                    val msg = activityResult
+                        .data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+                        ?.get(0).toString()
+                    if (msg.isNotEmpty()){
+                        val intent = Intent(
+                            Intent.ACTION_WEB_SEARCH
+                        )
+                        intent.setClassName(
+                            "com.google.android.googlequicksearchbox",
+                            "com.google.android.googlequicksearchbox.SearchActivity"
+                        )
+                        intent.putExtra(SearchManager.QUERY, msg)
+                        startActivity(intent)
+                    }
+                }
+                RESULT_CANCELED -> {
+                    message = "Proceso cancelado"
+                    sn.setBackgroundTint(resources.getColor(R.color.marvel))
+                }
+                else -> {
+                    message = "Ocurrió un error"
+                    sn.setBackgroundTint(resources.getColor(R.color.marvel))
+                }
+
+            }
+
+            sn.setText(message)
+            sn.show()
 
         }
+
         binding.btnActionT.setOnClickListener {
-            val resIntent =  Intent(this, ResultActivity::class.java)
-            appResulttLocal.launch(resIntent)
+            val intentSpeech =Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+            intentSpeech.putExtra(
+                RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+            )
+            intentSpeech.putExtra(
+                RecognizerIntent
+                    .EXTRA_LANGUAGE,
+                Locale.getDefault()
+            )
+            intentSpeech.putExtra(
+                RecognizerIntent.EXTRA_PROMPT,
+                "Di algo..."
+            )
+            speechToText.launch(intentSpeech)
+//            val resIntent = Intent(this, ResultActivity::class.java)
+//            appResultLocal.launch(resIntent)
         }
+
+
     }
 
     private suspend fun saveDataStore(stringData: String) {

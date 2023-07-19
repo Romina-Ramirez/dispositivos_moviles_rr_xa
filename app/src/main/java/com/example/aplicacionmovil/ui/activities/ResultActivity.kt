@@ -3,7 +3,6 @@ package com.example.aplicacionmovil.ui.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.aplicacionmovil.R
 import com.example.aplicacionmovil.databinding.ActivityResultBinding
 
 class ResultActivity : AppCompatActivity() {
@@ -19,12 +18,16 @@ class ResultActivity : AppCompatActivity() {
         super.onStart()
 
         binding.buttonResult.setOnClickListener {
-            setResult(RESULT_OK)
+            val i = Intent()
+            i.putExtra("result", "Resultado exitoso")
+            setResult(RESULT_OK, i)
             finish()
         }
 
         binding.buttonFalse.setOnClickListener {
-            setResult(RESULT_CANCELED)
+            val i = Intent()
+            i.putExtra("result", "Resultado fallido")
+            setResult(RESULT_CANCELED, i)
             finish()
         }
     }

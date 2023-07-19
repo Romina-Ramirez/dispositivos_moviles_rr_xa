@@ -8,12 +8,12 @@
     tools:context=".ui.activities.ResultActivity">
 
     <Button
-        android:id="@+id/buttonFalse"
+        android:id="@+id/buttonResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="212dp"
         android:text="Result OK"
-        app:layout_constraintBottom_toTopOf="@+id/buttonResult"
+        app:layout_constraintBottom_toTopOf="@+id/buttonFalse"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,7 +22,7 @@
 
     <Button
 
-        android:id="@+id/buttonResult"
+        android:id="@+id/buttonFalse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="112dp"
