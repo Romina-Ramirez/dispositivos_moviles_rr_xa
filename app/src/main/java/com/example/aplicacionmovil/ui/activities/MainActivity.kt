@@ -9,6 +9,7 @@ import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Looper
+import android.provider.Settings
 import android.speech.RecognizerIntent
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts.*
@@ -23,14 +24,17 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.lifecycle.lifecycleScope
 import com.example.aplicacionmovil.R
+import com.example.aplicacionmovil.ui.utilities.MyLocationManager
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.LocationSettingsRequest
 import com.google.android.gms.location.LocationSettingsStatusCodes
 import com.google.android.gms.location.Priority
+import com.google.android.gms.location.SettingsClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.UUID
@@ -43,9 +47,12 @@ class MainActivity : AppCompatActivity() {
     //ubicacion
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var binding: ActivityMainBinding
-
     private lateinit var locationRequest: LocationRequest
     private lateinit var locationCallBack: LocationCallback
+
+    //variables para pedir al servicio, de localizacion que active la solicitud de ejecucion
+    private lateinit var client: SettingsClient
+    private lateinit var locationSettingsRequest: LocationSettingsRequest
 
     private var currentLocation: Location? = null
 
@@ -98,41 +105,43 @@ class MainActivity : AppCompatActivity() {
         registerForActivityResult(RequestPermission()) { isGranted ->
             when (isGranted) {
                 true -> {
-                    val task = fusedLocationProviderClient.lastLocation
-                    task.addOnSuccessListener { location ->
-//                        val alert = AlertDialog.Builder(this)
-//                        alert.apply {
-//                            setTitle("Alerta")
-//                            setMessage("Existe un problema de posicionamiento global.")
-//                            setPositiveButton("OK") { dialog, id ->
-//                                dialog.dismiss()
-//                            }
-//                            setNegativeButton("Cancelar") { dialog, id ->
+                    //si la ubicacion esta activa hara esto
+                    client.checkLocationSettings(locationSettingsRequest).apply {
+                        addOnSuccessListener {
+                            val task = fusedLocationProviderClient.lastLocation
+                            task.addOnSuccessListener { location ->
+//                        val alert = AlertDialog.Builder(this).apply{
+//                            setTitle("Notificacion")
+//                            setMessage("Verifique que el gps este activo")
+//                            setPositiveButton("Verificar"){ dialog, id ->
+//                                val i = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+//                                startActivity(i)
 //                                dialog.dismiss()
 //                            }
 //                            setCancelable(false)
-//                        }.create()
-//                        alert.show()
+//                        }.show()
 
-                        fusedLocationProviderClient.requestLocationUpdates(
-                            locationRequest,
-                            locationCallBack,
-                            Looper.getMainLooper()
-                        )
-                    }
+                                fusedLocationProviderClient.requestLocationUpdates(
+                                    locationRequest,
+                                    locationCallBack,
+                                    Looper.getMainLooper()
+                                )
+                            }
+                        }
 
-                    task.addOnFailureListener { ex ->
-                        if (ex is ResolvableApiException) {
-                            ex.startResolutionForResult(
-                                this@MainActivity,
-                                LocationSettingsStatusCodes.RESOLUTION_REQUIRED
-                            )
+                        addOnFailureListener{ex ->
+                            if(ex is ResolvableApiException){
+                                ex.startResolutionForResult(
+                                    this@MainActivity,
+                                    LocationSettingsStatusCodes.RESOLUTION_REQUIRED
+                                )
+                            }
                         }
                     }
                 }
 
                 shouldShowRequestPermissionRationale(
-                    Manifest.permission.ACCESS_COARSE_LOCATION
+                    Manifest.permission.ACCESS_FINE_LOCATION
                 ) -> {
                     Snackbar.make(
                         binding.hola,
@@ -161,9 +170,7 @@ class MainActivity : AppCompatActivity() {
         locationRequest = LocationRequest.Builder(
             Priority.PRIORITY_HIGH_ACCURACY,
             1000
-        )
-//            .setMaxUpdates(3)
-            .build()
+        ).build()
 
         locationCallBack = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
@@ -176,9 +183,14 @@ class MainActivity : AppCompatActivity() {
                             "Ubicación: ${location.latitude}, ${location.longitude}"
                         )
                     }
+                } else {
+                    Log.d("UCE", "GPS apagado")
                 }
             }
         }
+        client = LocationServices.getSettingsClient(this)
+        locationSettingsRequest =
+            LocationSettingsRequest.Builder().addLocationRequest(locationRequest).build()
     }
 
     override fun onStart() {
@@ -227,7 +239,6 @@ class MainActivity : AppCompatActivity() {
                 ).show()
             }
         }
-
         //para que al darle click al boton facebook habra un link
         binding.btnActionF.setOnClickListener {
 //            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("geo:-0.2006288, -78.5786066")) //o "link" o "tel:09987434
@@ -241,27 +252,22 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra(SearchManager.QUERY, "UCE")
             startActivity(intent)
         }
-
         val appResultLocal =
             registerForActivityResult(StartActivityForResult()) { resultActivity ->
-
                 val sn = Snackbar.make(
                     binding.hola,
                     "",
                     Snackbar.LENGTH_LONG
                 )
-
                 var message = when (resultActivity.resultCode) {
                     RESULT_OK -> {
                         sn.setBackgroundTint(resources.getColor(R.color.verde))
                         resultActivity.data?.getStringExtra("result").orEmpty()
                     }
-
                     RESULT_CANCELED -> {
                         sn.setBackgroundTint(resources.getColor(R.color.marvel))
                         resultActivity.data?.getStringExtra("result").orEmpty()
                     }
-
                     else -> {
                         "Dudoso"
                     }
@@ -269,11 +275,9 @@ class MainActivity : AppCompatActivity() {
                 sn.setText(message)
                 sn.show()
             }
-
         binding.btnActionT.setOnClickListener {
             locationContract.launch(Manifest.permission.ACCESS_FINE_LOCATION)
         }
-
     }
 
     private suspend fun saveDataStore(stringData: String) {
@@ -282,5 +286,10 @@ class MainActivity : AppCompatActivity() {
             prefs[stringPreferencesKey("session")] = UUID.randomUUID().toString()
             prefs[stringPreferencesKey("email")] = "dispositivos_moviles@uce.edu.ec"
         }
+    }
+
+    private fun test(){
+        var location= MyLocationManager(this)
+        location.getUserLocation()
     }
 }
