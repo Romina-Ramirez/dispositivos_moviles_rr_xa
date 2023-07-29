@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <!-- 3 tipos de permisos: 2)no necesitan ser declarados o admitidos por el usuario(acceso a internet), -->
-    <!-- 2)permisos de nivel medio (acceso a imagenes), 3)permisos peligrosos -->
-    <!-- acceso a ubicacionç, camara, microfono -->
-    <!-- para el permiso de acceso a internet -->
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" /> <!-- ubicacion -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:name=".ui.utilities.AplicacionMovil"
@@ -23,6 +21,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ui.activities.CameraActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activities.MainActivity"
             android:exported="false" />
         <activity
@@ -35,7 +36,7 @@
             android:name=".ui.activities.SecondActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.CameraActivity"
+            android:name=".ui.activities.NotificationActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
