@@ -79,13 +79,20 @@ class NotificationActivity : AppCompatActivity() {
 
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, time, myPendingIntent)
-
-//        val df = Date(time)
-//
     }
 
     @SuppressLint("MissingPermission")
     fun sendNotificacion() {
+        val myIntent = Intent(this, SecondActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        val myPendingIntent = PendingIntent.getActivity(
+            this,
+            0,
+            myIntent,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
         val noti = NotificationCompat.Builder(this, CHANNEL)
         noti.setContentTitle("Primera notificacion")
         noti.setContentText("Tienes una notificación.")
@@ -96,6 +103,8 @@ class NotificationActivity : AppCompatActivity() {
             NotificationCompat.BigTextStyle()
                 .bigText("Esta es una notificación para recordar que estamos trabajando en Android.")
         )
+
+        noti.setContentIntent(myPendingIntent)
 
         with(from(this)) {
             notify(1, noti.build())
