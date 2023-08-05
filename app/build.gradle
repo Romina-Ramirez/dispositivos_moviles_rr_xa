@@ -81,4 +81,7 @@ dependencies {
     // LiveData
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.6.1"
 
+    //biometrico
+    implementation("androidx.biometric:biometric-ktx:1.2.0-alpha05")
+
 }
