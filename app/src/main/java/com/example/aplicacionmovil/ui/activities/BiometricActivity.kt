@@ -33,7 +33,7 @@ class BiometricActivity : AppCompatActivity() {
             autenticationBiometric()
         }
 
-        biometricViewModel.isLoading.observe(this){ isLoading ->
+        biometricViewModel.isLoading.observe(this) { isLoading ->
             if (isLoading) {
                 binding.lytMain.visibility = View.GONE
                 binding.lytMainCopia.visibility = View.VISIBLE

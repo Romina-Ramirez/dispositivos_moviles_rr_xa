@@ -12,6 +12,7 @@ import android.os.Looper
 import android.provider.Settings
 import android.speech.RecognizerIntent
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts.*
 import androidx.appcompat.app.AlertDialog
 import androidx.datastore.core.DataStore
@@ -35,6 +36,10 @@ import com.google.android.gms.location.LocationSettingsRequest
 import com.google.android.gms.location.LocationSettingsStatusCodes
 import com.google.android.gms.location.Priority
 import com.google.android.gms.location.SettingsClient
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.UUID
@@ -44,11 +49,16 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "se
 
 class MainActivity : AppCompatActivity() {
 
+
     //ubicacion
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var binding: ActivityMainBinding
     private lateinit var locationRequest: LocationRequest
     private lateinit var locationCallBack: LocationCallback
+
+    private lateinit var auth: FirebaseAuth
+    private val TAG = "UCE"
+
 
     //variables para pedir al servicio, de localizacion que active la solicitud de ejecucion
     private lateinit var client: SettingsClient
@@ -129,8 +139,8 @@ class MainActivity : AppCompatActivity() {
                             }
                         }
 
-                        addOnFailureListener{ex ->
-                            if(ex is ResolvableApiException){
+                        addOnFailureListener { ex ->
+                            if (ex is ResolvableApiException) {
                                 ex.startResolutionForResult(
                                     this@MainActivity,
                                     LocationSettingsStatusCodes.RESOLUTION_REQUIRED
@@ -162,6 +172,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -191,11 +203,93 @@ class MainActivity : AppCompatActivity() {
         client = LocationServices.getSettingsClient(this)
         locationSettingsRequest =
             LocationSettingsRequest.Builder().addLocationRequest(locationRequest).build()
+
+        //registro
+//        auth = Firebase.auth
+//        binding.ingresar.setOnClickListener {
+//            authWithFirebaseEmail(
+//                binding.ingresoCorreo.text.toString(),
+//                binding.ingresoContrasena.text.toString()
+//            )
+//        }
+
+        //ingresar
+        auth = Firebase.auth
+        binding.ingresar.setOnClickListener {
+            signInWithEmailAndPassword(
+                binding.ingresoCorreo.text.toString(),
+                binding.ingresoContrasena.text.toString()
+            )
+        }
+
+    }
+
+    private fun authWithFirebaseEmail(email: String, password: String) {
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(TAG, "createUserWithEmail:success")
+                    val user = auth.currentUser
+                    Toast.makeText(
+                        baseContext,
+                        "Authentication success.",
+                        Toast.LENGTH_SHORT,
+                    ).show()
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
+                    Toast.makeText(
+                        baseContext,
+                        "Authentication failed.",
+                        Toast.LENGTH_SHORT,
+                    ).show()
+                }
+            }
+    }
+
+    private fun signInWithEmailAndPassword(email:String, password: String){
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(TAG, "signInWithEmail:success")
+                    val user = auth.currentUser
+                    startActivity(Intent(this, SecondActivity::class.java))
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(TAG, "signInWithEmail:failure", task.exception)
+                    Toast.makeText(
+                        baseContext,
+                        "Authentication failed.",
+                        Toast.LENGTH_SHORT,
+                    ).show()
+                }
+            }
+    }
+
+    private fun recoveryPasswordWhithEmail(email: String){
+        auth.sendPasswordResetEmail(email).addOnCompleteListener{task->
+            if(task.isSuccessful){
+                //de una forma
+                Toast.makeText(
+                    this,
+                    "Correo de recuperacion enviado correctamente",
+                    Toast.LENGTH_SHORT,
+                ).show()
+                // de otra
+                MaterialAlertDialogBuilder(this).apply {
+                    setTitle("Alert")
+                    setMessage("Correo de recuperacion enviado correcftamente")
+                    setCancelable(true)
+                }
+            }
+        }
     }
 
     override fun onStart() {
         super.onStart()
-        initClass()
+//        initClass()
     }
 
     override fun onDestroy() {
@@ -264,10 +358,12 @@ class MainActivity : AppCompatActivity() {
                         sn.setBackgroundTint(resources.getColor(R.color.verde))
                         resultActivity.data?.getStringExtra("result").orEmpty()
                     }
+
                     RESULT_CANCELED -> {
                         sn.setBackgroundTint(resources.getColor(R.color.marvel))
                         resultActivity.data?.getStringExtra("result").orEmpty()
                     }
+
                     else -> {
                         "Dudoso"
                     }
@@ -288,8 +384,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun test(){
-        var location= MyLocationManager(this)
+    private fun test() {
+        var location = MyLocationManager(this)
         location.getUserLocation()
     }
 }
