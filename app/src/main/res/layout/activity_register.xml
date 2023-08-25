@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="@color/black"
+    android:backgroundTint="@color/rojo"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context=".ui.activities.MainActivity">
+    tools:context=".ui.activities.RegisterActivity">
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="170dp"
-        android:layout_height="170dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="300dp"
+        android:layout_height="169dp"
+        android:layout_marginTop="44dp"
         android:src="@drawable/marvelnegrgo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -26,11 +26,11 @@
         style="@style/pedidos"
         android:layout_width="@dimen/tamanio"
         android:layout_height="35dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="236dp"
         android:autoText="false"
-        android:text="Catálogo de héroes"
+        android:text="REGISTRATE"
         android:textAlignment="center"
-        android:textColor="@color/rojo"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,9 +41,9 @@
         style="@style/hola"
         android:layout_width="@dimen/tamanio"
         android:layout_height="21dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="40dp"
+        android:text="Ingresa los siguientes datos:"
         android:textColor="@color/white"
-        android:text="A continuacion ingresa tu información"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,6 +52,7 @@
     <TextView
         android:id="@+id/correo"
         style="@style/etiquetas"
+        android:textColor="@color/black"
         android:layout_width="@dimen/tamanio"
         android:layout_height="22dp"
         android:layout_marginTop="12dp"
@@ -79,6 +80,7 @@
     <TextView
         android:id="@+id/contrasena"
         style="@style/etiquetas"
+        android:textColor="@color/black"
         android:layout_width="@dimen/tamanio"
         android:layout_height="22dp"
         android:layout_marginTop="12dp"
@@ -109,97 +111,100 @@
         style="@style/boton"
         android:layout_width="314dp"
         android:layout_height="48dp"
-        android:layout_marginTop="40dp"
-        android:backgroundTint="@color/rojo"
-        android:text="Ingresar"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/black"
+        android:text="Registrarme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ingresoContrasena" />
-
-    <!--    android:drawableLeft="@drawable/twitter"-->
 
     <TextView
         android:id="@+id/conectese"
         style="@style/hola"
         android:layout_width="@dimen/tamanio"
         android:layout_height="21dp"
-        android:layout_marginTop="24dp"
-        android:text="O inicia sesión usando tu huella dactilar"
+        android:layout_marginTop="12dp"
+        android:text="¿Quieres usar tu huella digital?"
         android:textAlignment="center"
-        android:textColor="@color/white"
         android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ingresar" />
 
-    <!--    <Button-->
-<!--        android:id="@+id/btnActionT"-->
-<!--        style="@style/boton"-->
-<!--        android:layout_width="135dp"-->
-<!--        android:layout_height="55dp"-->
-<!--        android:layout_marginStart="48dp"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:backgroundTint="@color/twitter"-->
-<!--        android:text="     Twitter"-->
-<!--        android:textSize="16sp"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/huella" />-->
-
-<!--    <Button-->
-<!--        android:id="@+id/btnActionF"-->
-<!--        style="@style/boton"-->
-<!--        android:layout_width="135dp"-->
-<!--        android:layout_height="55dp"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:layout_marginEnd="48dp"-->
-<!--        android:backgroundTint="@color/facebook"-->
-<!--        android:text="    Facebook"-->
-<!--        android:textSize="16sp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="1.0"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/btnActionT"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/huella" />-->
-
     <Button
-        android:id="@+id/btn_huella"
+        android:id="@+id/huellaRegistro"
         style="@style/boton"
         android:layout_width="314dp"
         android:layout_height="48dp"
-        android:layout_marginTop="28dp"
-        android:backgroundTint="@color/rojo"
-        android:text="Ingresar con mi huella"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/black"
+        android:text="Usar mi huella"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/conectese" />
+        app:layout_constraintTop_toBottomOf="@+id/conectese"/>
 
     <TextView
-        android:id="@+id/olvido"
+        android:id="@+id/volver"
         style="@style/hola"
-        android:layout_width="215dp"
-        android:layout_height="25dp"
+        android:layout_width="176dp"
+        android:layout_height="20dp"
         android:layout_marginTop="16dp"
-        android:text="¿Aún no tienes una cuenta?"
+        android:text="¿Ya tienes una cuenta?"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.207"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_huella" />
+        app:layout_constraintTop_toBottomOf="@+id/huellaRegistro" />
 
     <TextView
-        android:id="@+id/registro"
+        android:id="@+id/inicio"
         style="@style/etiquetas"
-        android:layout_width="80dp"
-        android:layout_height="22dp"
+        android:layout_width="108dp"
+        android:layout_height="17dp"
         android:layout_marginTop="16dp"
-        android:text="Regístrese"
+        android:text="Inicia sesión"
+        android:textColor="@color/black"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.854"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_huella" />
+        app:layout_constraintTop_toBottomOf="@+id/huellaRegistro" />
+
+    <!--    android:drawableLeft="@drawable/twitter"-->
+
+
+
+
+<!--    <TextView-->
+<!--        android:id="@+id/olvido"-->
+<!--        style="@style/hola"-->
+<!--        android:layout_width="180dp"-->
+<!--        android:layout_height="21dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:text="¿Olvido su contraseña?"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.207"-->
+<!--        android:textColor="@color/white"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/conectese" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/registro"-->
+<!--        style="@style/etiquetas"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:layout_width="80dp"-->
+<!--        android:layout_height="22dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:text="Regístrese"-->
+<!--        android:textSize="15sp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.854"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/conectese" />-->
 
     <ImageView
         android:id="@+id/imgOcul"
@@ -212,27 +217,8 @@
         app:layout_constraintStart_toStartOf="@+id/ingresoContrasena"
         app:layout_constraintTop_toTopOf="@+id/ingresoContrasena" />
 
-<!--    <ImageView-->
-<!--        android:id="@+id/imgTwit"-->
-<!--        android:layout_width="29dp"-->
-<!--        android:layout_height="28dp"-->
-<!--        android:layout_marginTop="12dp"-->
-<!--        app:layout_constraintEnd_toEndOf="@+id/btnActionT"-->
-<!--        app:layout_constraintHorizontal_bias="0.103"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/btnActionT"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/btnActionT"-->
-<!--        app:srcCompat="@drawable/twitter" />-->
 
-<!--    <ImageView-->
-<!--        android:id="@+id/imgFac"-->
-<!--        android:layout_width="29dp"-->
-<!--        android:layout_height="27dp"-->
-<!--        android:layout_marginTop="12dp"-->
-<!--        app:layout_constraintEnd_toEndOf="@+id/btnActionF"-->
-<!--        app:layout_constraintHorizontal_bias="0.113"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/btnActionF"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/btnActionF"-->
-<!--        app:srcCompat="@drawable/facebook" />-->
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

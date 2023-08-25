@@ -3,8 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/RosaMarvel"
     android:layout_height="match_parent"
     tools:context=".ui.activities.BiometricActivity">
+
+
 
     <LinearLayout
         android:id="@+id/lytMain"
@@ -22,7 +25,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Autenticacion biométrica"
+            android:text="Por favor, ingresa tu huella digital"
+            android:textColor="@color/black"
             android:textSize="42sp" />
 
         <ImageView

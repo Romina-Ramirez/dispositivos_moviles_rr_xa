@@ -1,5 +1,6 @@
 package com.example.aplicacionmovil.ui.activities
-
+import androidx.biometric.BiometricPrompt
+import androidx.fragment.app.FragmentActivity
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.SearchManager
@@ -15,16 +16,18 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts.*
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
-import com.example.aplicacionmovil.databinding.ActivityMainBinding
+//import com.example.aplicacionmovil.databinding.ActivityMainBinding
 import com.example.aplicacionmovil.logic.validator.LoginValidator
 import com.google.android.material.snackbar.Snackbar
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.lifecycle.lifecycleScope
 import com.example.aplicacionmovil.R
+import com.example.aplicacionmovil.databinding.ActivityMainBinding
 import com.example.aplicacionmovil.ui.utilities.MyLocationManager
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -43,13 +46,12 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.UUID
+import java.util.concurrent.Executor
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
 
 class MainActivity : AppCompatActivity() {
-
-
     //ubicacion
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var binding: ActivityMainBinding
@@ -176,6 +178,7 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+//        executor = ContextCompat.getMainExecutor(this)
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
@@ -221,6 +224,15 @@ class MainActivity : AppCompatActivity() {
                 binding.ingresoContrasena.text.toString()
             )
         }
+        binding.btnHuella.setOnClickListener {
+            val intent= Intent(this, BiometricActivity::class.java)
+            startActivity(intent)
+        }
+
+    binding.registro.setOnClickListener {
+        val intent= Intent(this, RegisterActivity::class.java)
+        startActivity(intent)
+    }
 
     }
 
@@ -334,46 +346,46 @@ class MainActivity : AppCompatActivity() {
             }
         }
         //para que al darle click al boton facebook habra un link
-        binding.btnActionF.setOnClickListener {
-//            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("geo:-0.2006288, -78.5786066")) //o "link" o "tel:09987434
-            val intent = Intent(
-                Intent.ACTION_WEB_SEARCH
-            )
-            intent.setClassName(
-                "com.google.android.googlequicksearchbox",
-                "com.google.android.googlequicksearchbox.SearchActivity"
-            )
-            intent.putExtra(SearchManager.QUERY, "UCE")
-            startActivity(intent)
-        }
-        val appResultLocal =
-            registerForActivityResult(StartActivityForResult()) { resultActivity ->
-                val sn = Snackbar.make(
-                    binding.hola,
-                    "",
-                    Snackbar.LENGTH_LONG
-                )
-                var message = when (resultActivity.resultCode) {
-                    RESULT_OK -> {
-                        sn.setBackgroundTint(resources.getColor(R.color.verde))
-                        resultActivity.data?.getStringExtra("result").orEmpty()
-                    }
-
-                    RESULT_CANCELED -> {
-                        sn.setBackgroundTint(resources.getColor(R.color.marvel))
-                        resultActivity.data?.getStringExtra("result").orEmpty()
-                    }
-
-                    else -> {
-                        "Dudoso"
-                    }
-                }
-                sn.setText(message)
-                sn.show()
-            }
-        binding.btnActionT.setOnClickListener {
-            locationContract.launch(Manifest.permission.ACCESS_FINE_LOCATION)
-        }
+//        binding.btnActionF.setOnClickListener {
+////            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("geo:-0.2006288, -78.5786066")) //o "link" o "tel:09987434
+//            val intent = Intent(
+//                Intent.ACTION_WEB_SEARCH
+//            )
+//            intent.setClassName(
+//                "com.google.android.googlequicksearchbox",
+//                "com.google.android.googlequicksearchbox.SearchActivity"
+//            )
+//            intent.putExtra(SearchManager.QUERY, "UCE")
+//            startActivity(intent)
+//        }
+//        val appResultLocal =
+//            registerForActivityResult(StartActivityForResult()) { resultActivity ->
+//                val sn = Snackbar.make(
+//                    binding.hola,
+//                    "",
+//                    Snackbar.LENGTH_LONG
+//                )
+//                var message = when (resultActivity.resultCode) {
+//                    RESULT_OK -> {
+//                        sn.setBackgroundTint(resources.getColor(R.color.verde))
+//                        resultActivity.data?.getStringExtra("result").orEmpty()
+//                    }
+//
+//                    RESULT_CANCELED -> {
+//                        sn.setBackgroundTint(resources.getColor(R.color.marvel))
+//                        resultActivity.data?.getStringExtra("result").orEmpty()
+//                    }
+//
+//                    else -> {
+//                        "Dudoso"
+//                    }
+//                }
+//                sn.setText(message)
+//                sn.show()
+//            }
+//        binding.btnActionT.setOnClickListener {
+//            locationContract.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+//        }
     }
 
     private suspend fun saveDataStore(stringData: String) {
