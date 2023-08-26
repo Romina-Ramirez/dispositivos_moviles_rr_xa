@@ -27,6 +27,7 @@ Aplicación donde puedes ver información de películas. Creado por Romina Ramir
 ### Página de Inicio de Sesión
 
 La primera ventana que verás es la de inicio de sesión. Si ya tienes una cuenta, puedes acceder. Si no, tienes dos opciones: registrar una cuenta o iniciar sesión con huella, lo que también requerirá registrar tu huella para acceder a la aplicación.
+![image](https://github.com/Romina-Ramirez/dispositivos_moviles_rr_xa/assets/105686263/25049737-ca33-4d16-88a4-5ac73f2d0876)
 
 
 
@@ -40,6 +41,7 @@ Utilizamos Firebase para almacenar usuarios y contraseñas. Si necesitas recuper
 ### Botón de Ingresar Mediante Huella Digital
 
 Para acceder usando huella digital, simplemente coloca tu huella registrada en el dispositivo. Si aún no has registrado una huella, se abrirá un espacio donde puedes registrarla y así poder acceder a UMovie.
+![image](https://github.com/Romina-Ramirez/dispositivos_moviles_rr_xa/assets/105686263/7b29166e-08f4-4d85-bd51-cb1add9ae133)
 
 En el caso de no tener huella te saldrá lo siguiente:
 ![image](https://github.com/Romina-Ramirez/dispositivos_moviles_rr_xa/assets/105686398/0fcf53a4-8c8e-48bc-8a0a-d325307d8074)
@@ -60,6 +62,7 @@ A continuacón selecciona el incono de la huella y se abrirá la pestaña donde 
 ### Pantalla de Registro
 
 Para registrar una cuenta, ingresa tu correo y contraseña. También puedes usar tu huella digital para un acceso más rápido.
+![image](https://github.com/Romina-Ramirez/dispositivos_moviles_rr_xa/assets/105686263/09a03c3a-f0b1-4d99-9033-47dd1c3e2ffc)
 
 ## Activities
 
@@ -68,9 +71,9 @@ Para registrar una cuenta, ingresa tu correo y contraseña. También puedes usar
 Aquí podrás observar una interfaz principal amigable a la vista y muy intuitiva. En la parte inferior encontrarás el acceso a la barra de navegación.
 
 #### Barra de Navegación
-
-- Películas de Estreno: Muestra películas actuales en cines con detalles.
-- Películas Populares: Presenta películas más populares con sus detalles.
+![image](https://github.com/Romina-Ramirez/dispositivos_moviles_rr_xa/assets/105686263/09a03c3a-f0b1-4d99-9033-47dd1c3e2ffc)
+- Películas de Estreno o inicio: Muestra películas actuales en cines con detalles.
+- Películas Populares o buscar: Presenta películas más populares con sus detalles.
 - Mi Perfil: Muestra tu correo registrado y la lista de favoritos.
 
 ## Instalación
@@ -158,8 +161,19 @@ En el permiso de la camara marca error pero es visual ya que si ter permite el a
     - Toca "Películas Populares" para explorar las películas más populares junto con sus detalles.
     - Toca "Mi Perfil" para ver tu correo electrónico registrado y para establecer una foto de perfil. Si lo deseas, puedes seleccionar una foto de tu galería o tomar una nueva usando la cámara.
 
+![image](https://github.com/Romina-Ramirez/dispositivos_moviles_rr_xa/assets/105686263/09a03c3a-f0b1-4d99-9033-47dd1c3e2ffc)
+![image](https://github.com/Romina-Ramirez/dispositivos_moviles_rr_xa/assets/105686263/09a03c3a-f0b1-4d99-9033-47dd1c3e2ffc)
+![image](https://github.com/Romina-Ramirez/dispositivos_moviles_rr_xa/assets/105686263/09a03c3a-f0b1-4d99-9033-47dd1c3e2ffc)
+![image](https://github.com/Romina-Ramirez/dispositivos_moviles_rr_xa/assets/105686263/a197faf8-61d0-4913-ad79-092a64660bd6)
+![image](https://github.com/Romina-Ramirez/dispositivos_moviles_rr_xa/assets/105686263/4543c696-0361-4d4e-ab87-8e35dcb1b8d6)
+![image](https://github.com/Romina-Ramirez/dispositivos_moviles_rr_xa/assets/105686263/51906554-cd90-4386-9ef1-697b6ad5102e)
+![image](https://github.com/Romina-Ramirez/dispositivos_moviles_rr_xa/assets/105686263/c32d1a32-d0c6-40ea-baea-58aa72c19556)
+![image](https://github.com/Romina-Ramirez/dispositivos_moviles_rr_xa/assets/105686263/9e2d91e0-32dd-4118-89b1-a0ebfbb18f6b)
+
+
 6. **Favoritos en Mi Perfil:**
     - En la sección "Mi Perfil", encontrarás la lista de películas a las que les has dado "Me Gusta".
+![image](https://github.com/Romina-Ramirez/dispositivos_moviles_rr_xa/assets/105686263/09a03c3a-f0b1-4d99-9033-47dd1c3e2ffc)
 
 ## Licencia
 
