@@ -28,15 +28,34 @@ Aplicación donde puedes ver información de películas. Creado por Romina Ramir
 
 La primera ventana que verás es la de inicio de sesión. Si ya tienes una cuenta, puedes acceder. Si no, tienes dos opciones: registrar una cuenta o iniciar sesión con huella, lo que también requerirá registrar tu huella para acceder a la aplicación.
 
-![image](https://github.com/Romina-Ramirez/dispositivos_moviles_rr_xa/assets/105686398/f39415e5-c7ce-4efa-84c1-88dba24cbae6)
+
 
 ### Opción de Recuperar Contraseña
 
 Utilizamos Firebase para almacenar usuarios y contraseñas. Si necesitas recuperar tu cuenta, recibirás un correo en la dirección que proporcionaste. El correo contendrá instrucciones para crear una nueva contraseña.
 
+![image](https://github.com/Romina-Ramirez/dispositivos_moviles_rr_xa/assets/105686398/2d8e23c2-f166-4af8-b9f0-5109e8ad6dda)
+
+
 ### Botón de Ingresar Mediante Huella Digital
 
 Para acceder usando huella digital, simplemente coloca tu huella registrada en el dispositivo. Si aún no has registrado una huella, se abrirá un espacio donde puedes registrarla y así poder acceder a UMovie.
+
+En el caso de no tener huella te saldrá lo siguiente:
+![image](https://github.com/Romina-Ramirez/dispositivos_moviles_rr_xa/assets/105686398/0fcf53a4-8c8e-48bc-8a0a-d325307d8074)
+![image](https://github.com/Romina-Ramirez/dispositivos_moviles_rr_xa/assets/105686398/4f8cb09d-878c-47a9-a90f-6dc20eb49bb6)
+![image](https://github.com/Romina-Ramirez/dispositivos_moviles_rr_xa/assets/105686398/a3e5702d-dd41-4b4a-9e4f-c729eb1c4aba)
+![image](https://github.com/Romina-Ramirez/dispositivos_moviles_rr_xa/assets/105686398/eacca71e-136e-4736-a373-1d2d22b02e2c)
+
+Para poder activar la huella digital le das en los 3 puntos en la parte superior del celular y en la venta que te aparece le dar en Fingerprint
+![image](https://github.com/Romina-Ramirez/dispositivos_moviles_rr_xa/assets/105686398/87c8fa9b-39ac-48a0-a6f1-2f9fdf56a598)
+
+Y presionas dos veces el botón touch senssor
+![image](https://github.com/Romina-Ramirez/dispositivos_moviles_rr_xa/assets/105686398/5b4700e2-b12a-4313-b20d-8f31fcd17cc7)
+Y se agregará la huella
+![image](https://github.com/Romina-Ramirez/dispositivos_moviles_rr_xa/assets/105686398/169b4589-db44-4d61-ab24-31bda95ba252)
+A continuacón selecciona el incono de la huella y se abrirá la pestaña donde puedes seleccionar touch sensor nuevamente para acceder a la interfaz principal.
+![image](https://github.com/Romina-Ramirez/dispositivos_moviles_rr_xa/assets/105686398/4fdb189b-5431-4e82-9471-548efbd75906)
 
 ### Pantalla de Registro
 
@@ -57,7 +76,7 @@ Aquí podrás observar una interfaz principal amigable a la vista y muy intuitiv
 ## Instalación
 
 1. Instala Android Studio siguiendo las instrucciones en su [sitio web](https://developer.android.com/studio).
-2. Descarga la versión ZIP del proyecto desde [aquí](https://github.com/Romina-Ramirez/dispositivos_moviles_rr_xa/archive/refs/heads/main.zip).
+2. Descarga la versión ZIP del proyecto desde [aquí](https://github.com/Romina-Ramirez/dispositivos_moviles_rr_xa.git).
 3. Extrae el archivo ZIP y abre la carpeta en Android Studio.
 4. Abre el terminal dentro de Android Studio y ejecuta los siguientes comandos:
    git pull
@@ -90,6 +109,8 @@ Aquí podrás observar una interfaz principal amigable a la vista y muy intuitiv
 
 - **Firebase**: Plataforma de desarrollo de aplicaciones móviles que ofrece diversas herramientas, como autenticación, almacenamiento en la nube y bases de datos en tiempo real. Implementación: Varios módulos de Firebase, por ejemplo: `implementation 'com.google.firebase:firebase-auth:x.y.z'`.
 
+![image](https://github.com/Romina-Ramirez/dispositivos_moviles_rr_xa/assets/105686398/a07da629-3137-4247-bea7-0f4143d4171c)
+![image](https://github.com/Romina-Ramirez/dispositivos_moviles_rr_xa/assets/105686398/20007fa5-8926-4eb4-b663-48f7f2d2e15b)
 
 ## Permisos Necesarios
 
@@ -98,10 +119,11 @@ Para el correcto funcionamiento de la aplicación, se requieren los siguientes p
 1. **Acceso a la Cámara**: Este permiso es necesario para permitir al usuario tomar fotos y establecer una imagen de perfil.
 2.  **Acceso al almacenamiento**: Este permiso es esencial para permitir que el usuario elija imágenes de su galería como foto de perfil.
    - Implementación:
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    En el permiso de la camara marca error pero es visual ya que si ter permite el acceso a la camara.
+
+![image](https://github.com/Romina-Ramirez/dispositivos_moviles_rr_xa/assets/105686398/8a470d70-d4e9-4c52-8a07-df08761395a3)
+
+
+En el permiso de la camara marca error pero es visual ya que si ter permite el acceso a la camara.
 
 ## Uso
 
@@ -146,5 +168,6 @@ Este proyecto está bajo una Licencia Abierta.
 Realizado por Romina Ramirez y Xavier Aguilar.
 
 ## Agradecimientos
+![image](https://github.com/Romina-Ramirez/dispositivos_moviles_rr_xa/assets/105686398/75a0eb80-9f35-4dc7-9379-f30619299a51)
 
-Agradecemos al ingeniero Byron Torres por impartirnos el conocimiento que implementamos en nuestra aplicación. Sus enseñanzas fueron fundamentales para el desarrollo de UMovie.
+Agradecemos al Ingeniero Byron Torres por impartirnos el conocimiento que implementamos en nuestra aplicación. Sus enseñanzas fueron fundamentales para el desarrollo de UMovie.
