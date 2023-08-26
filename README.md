@@ -71,7 +71,8 @@ Para registrar una cuenta, ingresa tu correo y contraseña. También puedes usar
 Aquí podrás observar una interfaz principal amigable a la vista y muy intuitiva. En la parte inferior encontrarás el acceso a la barra de navegación.
 
 #### Barra de Navegación
-![image](https://github.com/Romina-Ramirez/dispositivos_moviles_rr_xa/assets/105686263/09a03c3a-f0b1-4d99-9033-47dd1c3e2ffc)
+![image](https://github.com/Romina-Ramirez/dispositivos_moviles_rr_xa/assets/105686263/77044281-f489-4b75-8823-257142b7f150)
+
 - Películas de Estreno o inicio: Muestra películas actuales en cines con detalles.
 - Películas Populares o buscar: Presenta películas más populares con sus detalles.
 - Mi Perfil: Muestra tu correo registrado y la lista de favoritos.
