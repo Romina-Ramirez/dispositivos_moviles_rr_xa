@@ -75,12 +75,14 @@ Aquí podrás observar una interfaz principal amigable a la vista y muy intuitiv
 
 ## Instalación
 
-1. Instala Android Studio siguiendo las instrucciones en su [sitio web](https://developer.android.com/studio).
-2. Descarga la versión ZIP del proyecto desde [aquí](https://github.com/Romina-Ramirez/dispositivos_moviles_rr_xa.git).
-3. Extrae el archivo ZIP y abre la carpeta en Android Studio.
+1. Instala Android Studio siguiendo las instrucciones en su [sitio web](https://developer.android.com/studio).![image](https://github.com/Romina-Ramirez/dispositivos_moviles_rr_xa/assets/105686398/f3488b97-4cbb-4cb1-a2ab-18b8930ada10)
+
+2. Descarga la versión ZIP del proyecto desde [aquí](https://github.com/Romina-Ramirez/dispositivos_moviles_rr_xa.git).![image](https://github.com/Romina-Ramirez/dispositivos_moviles_rr_xa/assets/105686398/8e950364-b657-4768-a6dd-62248af19522)
+
+3. Extrae el archivo ZIP y abre la carpeta en Android Studio.![image](https://github.com/Romina-Ramirez/dispositivos_moviles_rr_xa/assets/105686398/519e9808-fd80-4afa-94a5-1edec3b2d9ea)
+
 4. Abre el terminal dentro de Android Studio y ejecuta los siguientes comandos:
-   git pull
-   git checkout aplicacionMovil
+   -git checkout aplicacionMovil
 5. Abre el proyecto en Android Studio.
 
 ## Librerías Utilizadas
