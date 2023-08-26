@@ -1,5 +1,7 @@
 package com.example.aplicacionmovil.ui.activities
 
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
@@ -16,6 +18,7 @@ class DetailsMarvelItem : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailsMarvelItemBinding
     private var marvelCharsItemsDB: MutableList<MarvelChars> = mutableListOf<MarvelChars>()
+    private val favoriteMarvelItems: MutableList<MarvelChars> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,13 +28,6 @@ class DetailsMarvelItem : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-//        var name: String? = ""
-//        intent.extras?.let {
-//            name = it.getString("name")
-//        }
-//        if (!name.isNullOrEmpty()) {
-//            binding.txtName.text = name
-//        }
 
         val item = intent.getParcelableExtra<MarvelChars>("name")
 
@@ -54,6 +50,7 @@ class DetailsMarvelItem : AppCompatActivity() {
                         "Se agrego a favoritos",
                         Snackbar.LENGTH_SHORT
                     ).show()
+                    updateFavoriteList()
 
                 } else {
                     Snackbar.make(
@@ -69,28 +66,39 @@ class DetailsMarvelItem : AppCompatActivity() {
     }
 
     private fun saveMarvelItem(item: MarvelChars): Boolean {
-
         return if (item == null || marvelCharsItemsDB.contains(item)) {
             false
         } else {
-
             lifecycleScope.launch(Dispatchers.Main) {
                 withContext(Dispatchers.IO) {
                     MarvelCharactersLogic().insertMarvelChartstoDB(listOf(item))
                     marvelCharsItemsDB = MarvelCharactersLogic().getAllMarvelChardDB().toMutableList()
+                    favoriteMarvelItems.add(item)
                 }
-
             }
             true
         }
-
     }
+
+
+
+    private fun updateFavoriteList() {
+        // Notificar al ThirdFragment que la lista de favoritos se actualizó
+        val returnIntent = Intent()
+        returnIntent.putParcelableArrayListExtra("favorites", ArrayList(favoriteMarvelItems))
+        setResult(Activity.RESULT_OK, returnIntent)
+        finish()
+    }
+
 
     override fun onResume() {
         super.onResume()
         lifecycleScope.launch(Dispatchers.Main) {
             withContext(Dispatchers.IO) {
+                favoriteMarvelItems.clear()
+                favoriteMarvelItems.addAll(MarvelCharactersLogic().getAllMarvelChardDB())
                 marvelCharsItemsDB = MarvelCharactersLogic().getAllMarvelChardDB().toMutableList()
+
             }
         }
     }

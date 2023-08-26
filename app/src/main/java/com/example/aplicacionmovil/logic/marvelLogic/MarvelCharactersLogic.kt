@@ -59,6 +59,18 @@ class MarvelCharactersLogic {
         return items
     }
 
+    suspend fun getSavedMarvelChars(): List<MarvelChars> {
+        return AplicacionMovil.getdbInstancs().marvelDao().getAllCharacters()
+            .map {
+                MarvelChars(
+                    it.id,
+                    it.name,
+                    it.comic,
+                    it.image
+                )
+            }
+    }
+
     suspend fun getInitChars(limit: Int, offset: Int): MutableList<MarvelChars> {
         var items = mutableListOf<MarvelChars>()
         try {
@@ -87,5 +99,6 @@ class MarvelCharactersLogic {
             .insertMarvelChar(itemsDB)
         return false
     }
+
 
 }

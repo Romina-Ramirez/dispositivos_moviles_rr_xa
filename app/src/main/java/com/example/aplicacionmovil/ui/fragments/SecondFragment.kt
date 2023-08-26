@@ -1,33 +1,24 @@
 package com.example.aplicacionmovil.ui.fragments
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
-import androidx.datastore.dataStore
 import androidx.datastore.preferences.core.stringPreferencesKey
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.aplicacionmovil.data.UserDataStore
 import com.example.aplicacionmovil.ui.activities.dataStore
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
-import com.example.aplicacionmovil.R
-import com.example.aplicacionmovil.data.entities.marvel.characters.database.MarvelCharsDB
 import com.example.aplicacionmovil.logic.data.MarvelChars
 import com.example.aplicacionmovil.databinding.FragmentSecondBinding
-import com.example.aplicacionmovil.logic.data.getMarvelCharsDB
 import com.example.aplicacionmovil.logic.marvelLogic.MarvelCharactersLogic
 import com.example.aplicacionmovil.ui.activities.DetailsMarvelItem
 import com.example.aplicacionmovil.ui.adapters.MarvelAdapter
-import com.example.aplicacionmovil.ui.utilities.AplicacionMovil
 import com.example.aplicacionmovil.ui.utilities.Metodos
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
@@ -35,7 +26,11 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class SecondFragment : Fragment() {
-    private var rvAdapter: MarvelAdapter = MarvelAdapter ({ sendMarvelItem(it) },{saveMarvelItem(it)})
+    private var rvAdapter: MarvelAdapter = MarvelAdapter ({ sendMarvelItem(it) }) {
+        saveMarvelItem(
+            it
+        )
+    }
     private lateinit var binding: FragmentSecondBinding
     private lateinit var lmanager: LinearLayoutManager
     private lateinit var gManager: GridLayoutManager

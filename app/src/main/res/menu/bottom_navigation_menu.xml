@@ -16,8 +16,8 @@
         android:visible="true"/>
     <item
         android:id="@+id/apis"
-        android:title="@string/menu_tres"
+        android:title="Mi Perfil"
         android:enabled="true"
-        android:icon="@drawable/phone_icon"
+        android:icon="@drawable/baseline_person_24"
         android:visible="true"/>
 </menu>
