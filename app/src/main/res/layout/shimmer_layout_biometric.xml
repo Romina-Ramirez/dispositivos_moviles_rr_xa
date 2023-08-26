@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <com.facebook.shimmer.ShimmerFrameLayout
         android:layout_width="match_parent"
@@ -22,14 +22,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="102dp"
                 android:layout_marginHorizontal="16dp"
-                android:background="#dddddd"
+                android:background="@color/orange"
                 android:gravity="center" />
 
             <View
                 android:layout_width="68dp"
                 android:layout_height="68dp"
                 android:layout_marginTop="28dp"
-                android:background="#dddddd" />
+                android:background="@color/orange" />
         </LinearLayout>
     </com.facebook.shimmer.ShimmerFrameLayout>
 

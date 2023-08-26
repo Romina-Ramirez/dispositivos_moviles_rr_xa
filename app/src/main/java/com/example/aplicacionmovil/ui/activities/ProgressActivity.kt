@@ -3,7 +3,6 @@ package com.example.aplicacionmovil.ui.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
@@ -45,7 +44,7 @@ class ProgressActivity : AppCompatActivity() {
 
         binding.btnProceso1.setOnClickListener {
             lifecycleScope.launch(Dispatchers.IO) {
-                progressviewmodel.getMarvelChars(0, 90)
+                progressviewmodel.getNowMovies()
             }
         }
     }

@@ -1,4 +1,5 @@
 package com.example.aplicacionmovil.ui.activities
+
 import androidx.biometric.BiometricPrompt
 import androidx.fragment.app.FragmentActivity
 import android.Manifest
@@ -72,7 +73,7 @@ class MainActivity : AppCompatActivity() {
         registerForActivityResult(StartActivityForResult()) { activityResult ->
 
             val sn = Snackbar.make(
-                binding.hola,
+                binding.welcome,
                 "",
                 Snackbar.LENGTH_LONG
             )
@@ -122,16 +123,6 @@ class MainActivity : AppCompatActivity() {
                         addOnSuccessListener {
                             val task = fusedLocationProviderClient.lastLocation
                             task.addOnSuccessListener { location ->
-//                        val alert = AlertDialog.Builder(this).apply{
-//                            setTitle("Notificacion")
-//                            setMessage("Verifique que el gps este activo")
-//                            setPositiveButton("Verificar"){ dialog, id ->
-//                                val i = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-//                                startActivity(i)
-//                                dialog.dismiss()
-//                            }
-//                            setCancelable(false)
-//                        }.show()
 
                                 fusedLocationProviderClient.requestLocationUpdates(
                                     locationRequest,
@@ -156,7 +147,7 @@ class MainActivity : AppCompatActivity() {
                     Manifest.permission.ACCESS_FINE_LOCATION
                 ) -> {
                     Snackbar.make(
-                        binding.hola,
+                        binding.welcome,
                         "Ayude con el permiso porfa",
                         Snackbar.LENGTH_LONG
                     ).show()
@@ -164,7 +155,7 @@ class MainActivity : AppCompatActivity() {
 
                 false -> {
                     Snackbar.make(
-                        binding.hola,
+                        binding.welcome,
                         "Encienda el GPS por favor",
                         Snackbar.LENGTH_LONG
                     ).show()
@@ -207,15 +198,6 @@ class MainActivity : AppCompatActivity() {
         locationSettingsRequest =
             LocationSettingsRequest.Builder().addLocationRequest(locationRequest).build()
 
-        //registro
-//        auth = Firebase.auth
-//        binding.ingresar.setOnClickListener {
-//            authWithFirebaseEmail(
-//                binding.ingresoCorreo.text.toString(),
-//                binding.ingresoContrasena.text.toString()
-//            )
-//        }
-
         //ingresar
         auth = Firebase.auth
         binding.ingresar.setOnClickListener {
@@ -224,43 +206,27 @@ class MainActivity : AppCompatActivity() {
                 binding.ingresoContrasena.text.toString()
             )
         }
+        //recuperar contraseña
+        auth = Firebase.auth
+        binding.btnOlvido.setOnClickListener {
+            recoveryPasswordWhithEmail(
+                binding.ingresoCorreo.text.toString()
+            )
+        }
         binding.btnHuella.setOnClickListener {
-            val intent= Intent(this, BiometricActivity::class.java)
+            val intent = Intent(this, BiometricActivity::class.java)
             startActivity(intent)
         }
 
-    binding.registro.setOnClickListener {
-        val intent= Intent(this, RegisterActivity::class.java)
-        startActivity(intent)
-    }
+        binding.registro.setOnClickListener {
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 
-    private fun authWithFirebaseEmail(email: String, password: String) {
-        auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d(TAG, "createUserWithEmail:success")
-                    val user = auth.currentUser
-                    Toast.makeText(
-                        baseContext,
-                        "Authentication success.",
-                        Toast.LENGTH_SHORT,
-                    ).show()
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                    Toast.makeText(
-                        baseContext,
-                        "Authentication failed.",
-                        Toast.LENGTH_SHORT,
-                    ).show()
-                }
-            }
-    }
 
-    private fun signInWithEmailAndPassword(email:String, password: String){
+    private fun signInWithEmailAndPassword(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -280,9 +246,9 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
-    private fun recoveryPasswordWhithEmail(email: String){
-        auth.sendPasswordResetEmail(email).addOnCompleteListener{task->
-            if(task.isSuccessful){
+    private fun recoveryPasswordWhithEmail(email: String) {
+        auth.sendPasswordResetEmail(email).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
                 //de una forma
                 Toast.makeText(
                     this,
@@ -313,81 +279,6 @@ class MainActivity : AppCompatActivity() {
         fusedLocationProviderClient.removeLocationUpdates(locationCallBack)
     }
 
-    private fun initClass() {
-        binding.ingresar.setOnClickListener {
-
-            val check = LoginValidator().checkLogin(
-                binding.ingresoCorreo.text.toString(),
-                binding.ingresoContrasena.text.toString()
-            )
-
-            if (check) {
-                lifecycleScope.launch(Dispatchers.IO) {
-                    saveDataStore(binding.ingresoCorreo.text.toString())
-                }
-
-                var intent = Intent(
-                    this,
-                    SecondActivity::class.java
-                )
-
-                intent.putExtra(
-                    "var1",
-                    ""
-                )
-
-                intent.putExtra("var2", 2)
-                startActivity(intent)
-            } else {
-                Snackbar.make(
-                    binding.pedOnl, "Usuario o contraseña inválidos",
-                    Snackbar.LENGTH_LONG
-                ).show()
-            }
-        }
-        //para que al darle click al boton facebook habra un link
-//        binding.btnActionF.setOnClickListener {
-////            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("geo:-0.2006288, -78.5786066")) //o "link" o "tel:09987434
-//            val intent = Intent(
-//                Intent.ACTION_WEB_SEARCH
-//            )
-//            intent.setClassName(
-//                "com.google.android.googlequicksearchbox",
-//                "com.google.android.googlequicksearchbox.SearchActivity"
-//            )
-//            intent.putExtra(SearchManager.QUERY, "UCE")
-//            startActivity(intent)
-//        }
-//        val appResultLocal =
-//            registerForActivityResult(StartActivityForResult()) { resultActivity ->
-//                val sn = Snackbar.make(
-//                    binding.hola,
-//                    "",
-//                    Snackbar.LENGTH_LONG
-//                )
-//                var message = when (resultActivity.resultCode) {
-//                    RESULT_OK -> {
-//                        sn.setBackgroundTint(resources.getColor(R.color.verde))
-//                        resultActivity.data?.getStringExtra("result").orEmpty()
-//                    }
-//
-//                    RESULT_CANCELED -> {
-//                        sn.setBackgroundTint(resources.getColor(R.color.marvel))
-//                        resultActivity.data?.getStringExtra("result").orEmpty()
-//                    }
-//
-//                    else -> {
-//                        "Dudoso"
-//                    }
-//                }
-//                sn.setText(message)
-//                sn.show()
-//            }
-//        binding.btnActionT.setOnClickListener {
-//            locationContract.launch(Manifest.permission.ACCESS_FINE_LOCATION)
-//        }
-    }
-
     private suspend fun saveDataStore(stringData: String) {
         dataStore.edit { prefs ->
             prefs[stringPreferencesKey("user")] = stringData
@@ -396,8 +287,4 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun test() {
-        var location = MyLocationManager(this)
-        location.getUserLocation()
-    }
 }

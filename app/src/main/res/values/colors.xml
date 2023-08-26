@@ -11,4 +11,11 @@
     <color name="marvel">#EE171F</color>
     <color name="marvelOsc">#8C0F14</color>
     <color name="RosaMarvel">#FF5D5D</color>
+    <color name="principal">#ADB2EC</color>
+    <color name="darkPurple">#690ABC</color>
+    <color name="gold">#DA912F</color>
+    <color name="second">#E19AB8</color>
+    <color name="darkPink">#8E003C</color>
+    <color name="orange">#E27E18</color>
+
 </resources>

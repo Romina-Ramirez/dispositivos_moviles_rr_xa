@@ -5,34 +5,25 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiConnection {
 
-    enum class typeApi {
-        Jikan, Marvel
-    }
+    enum class typeApi { Movies }
 
-    private val API_JIKAN = "https://api.jikan.moe/v4/"
-    private val API_MARVEL = "https://gateway.marvel.com/v1/public/"
+    private val API_MOVIES = "https://api.themoviedb.org/3/movie/"
 
     private fun getConnnection(base: String): Retrofit {
-        var retrofit = Retrofit.Builder()
+        return Retrofit.Builder()
             .baseUrl(base)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        return retrofit
     }
 
-    suspend fun <T, E : Enum<E>> getService(api: E, service: Class<T>): T {
+    fun <T, E : Enum<E>> getService(api: E, service: Class<T>): T {
         var BASE = ""
         when (api.name) {
-            typeApi.Jikan.name -> {
-                BASE = API_JIKAN
-            }
-
-            typeApi.Marvel.name -> {
-                BASE = API_MARVEL
+            typeApi.Movies.name -> {
+                BASE = API_MOVIES
             }
         }
         return getConnnection(BASE).create(service)
     }
-
 
 }

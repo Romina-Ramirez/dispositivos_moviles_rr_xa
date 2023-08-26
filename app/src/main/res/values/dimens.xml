@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="tamanio">314dp</dimen>
+    <dimen name="lengthWidth">314dp</dimen>
+    <dimen name="mediumWidth">215dp</dimen>
+    <dimen name="shortWidth">85dp</dimen>
 </resources>

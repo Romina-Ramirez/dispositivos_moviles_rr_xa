@@ -1,8 +1,19 @@
 <resources>
-    <string name="app_name">AplicacionMovil</string>
-    <string name="menu_dos">Buscar</string>
+    <string name="app_name">UMovie</string>
     <string name="menu_uno">Inicio</string>
-    <string name="menu_tres">Apis</string>
-    <string name="presentacion">Te presentamos la lista completa de los personajes de Marvel.</string>
-    <string name="busqueda">Encuentra a tu personaje.</string>
+    <string name="menu_dos">Buscar</string>
+    <string name="menu_tres">Mi Perfil</string>
+    <string name="presentacion">Te presentamos la lista de películas estrenadas recientemente.</string>
+    <string name="busqueda">Te presentamos las peliculas más populares del momento.</string>
+    <string name="welcome">Ingresa tus credenciales para comenzar a explorar.</string>
+    <string name="correo">Correo</string>
+    <string name="contrasena">Contraseña</string>
+    <string name="ingresar">Ingresar</string>
+    <string name="usandoTuHuella">O inicia sesión usando tu huella dactilar</string>
+    <string name="ingresarHuella">Ingresar con mi huella</string>
+    <string name="olvido">¿Olvidaste tu contraseña?</string>
+    <string name="recuperar">Recupérala</string>
+    <string name="sin_cuenta">¿Aún no tienes una cuenta?</string>
+    <string name="registrar">Regístrate</string>
+    <string name="ingresarDatos">Ingresa los siguientes datos:</string>
 </resources>

@@ -10,7 +10,7 @@ class BiometricViewModel : ViewModel() {
 
     suspend fun chargingData() {
         isLoading.postValue(true)
-        delay(5000)
+        delay(1000)
         isLoading.postValue(false)
     }
 

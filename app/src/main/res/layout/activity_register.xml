@@ -4,157 +4,127 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="@color/rojo"
     android:orientation="vertical"
-    android:background="@color/white"
+    android:background="@color/second"
     tools:context=".ui.activities.RegisterActivity">
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="300dp"
-        android:layout_height="169dp"
-        android:layout_marginTop="44dp"
-        android:src="@drawable/marvelnegrgo"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:src="@drawable/cinema_movies_2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/pedOnl"
-
-        style="@style/pedidos"
-        android:layout_width="@dimen/tamanio"
-        android:layout_height="35dp"
-        android:layout_marginTop="236dp"
-        android:autoText="false"
-        android:text="REGISTRATE"
-        android:textAlignment="center"
-        android:textColor="@color/black"
+        android:id="@+id/titleApp"
+        style="@style/titles"
+        android:layout_width="@dimen/lengthWidth"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/registrar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/logo" />
 
     <TextView
-        android:id="@+id/hola"
-        style="@style/hola"
-        android:layout_width="@dimen/tamanio"
+        android:id="@+id/welcome"
+        style="@style/welcome"
+        android:layout_width="@dimen/lengthWidth"
         android:layout_height="21dp"
-        android:layout_marginTop="40dp"
-        android:text="Ingresa los siguientes datos:"
-        android:textColor="@color/white"
+        android:layout_marginTop="8dp"
+        android:text="@string/ingresarDatos"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pedOnl" />
+        app:layout_constraintTop_toBottomOf="@+id/titleApp" />
 
     <TextView
         android:id="@+id/correo"
-        style="@style/etiquetas"
-        android:textColor="@color/black"
-        android:layout_width="@dimen/tamanio"
+        style="@style/etiquetas2"
+        android:layout_width="@dimen/lengthWidth"
         android:layout_height="22dp"
         android:layout_marginTop="12dp"
-        android:text="Correo"
+        android:text="@string/correo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hola" />
+        app:layout_constraintTop_toBottomOf="@+id/welcome" />
 
     <EditText
         android:id="@+id/ingresoCorreo"
         style="@style/ingresos"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/lengthWidth"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:ems="18"
         android:inputType="text"
-        android:hint="example@email.com"
-        android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/correo" />
 
     <TextView
         android:id="@+id/contrasena"
-        style="@style/etiquetas"
-        android:textColor="@color/black"
-        android:layout_width="@dimen/tamanio"
+        style="@style/etiquetas2"
+        android:layout_width="@dimen/lengthWidth"
         android:layout_height="22dp"
         android:layout_marginTop="12dp"
         android:text="Contraseña"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ingresoCorreo" />
 
     <EditText
         android:id="@+id/ingresoContrasena"
         style="@style/ingresos"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/lengthWidth"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:ems="18"
         android:inputType="textPassword"
-        android:hint="Contraseñas"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
+        android:hint="Mínimo 6 digitos"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/contrasena" />
 
     <Button
         android:id="@+id/ingresar"
-        style="@style/boton"
-        android:layout_width="314dp"
+        style="@style/boton2"
+        android:layout_width="@dimen/lengthWidth"
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
-        android:backgroundTint="@color/black"
         android:text="Registrarme"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ingresoContrasena" />
 
     <TextView
         android:id="@+id/conectese"
-        style="@style/hola"
-        android:layout_width="@dimen/tamanio"
-        android:layout_height="21dp"
+        style="@style/welcome"
+        android:layout_width="@dimen/lengthWidth"
+        android:layout_height="25dp"
         android:layout_marginTop="12dp"
         android:text="¿Quieres usar tu huella digital?"
         android:textAlignment="center"
-        android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
-        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ingresar" />
 
     <Button
         android:id="@+id/huellaRegistro"
-        style="@style/boton"
-        android:layout_width="314dp"
+        style="@style/boton2"
+        android:layout_width="@dimen/lengthWidth"
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
-        android:backgroundTint="@color/black"
         android:text="Usar mi huella"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/conectese"/>
 
     <TextView
         android:id="@+id/volver"
-        style="@style/hola"
+        style="@style/welcome"
         android:layout_width="176dp"
         android:layout_height="20dp"
         android:layout_marginTop="16dp"
         android:text="¿Ya tienes una cuenta?"
-        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.207"
         app:layout_constraintStart_toStartOf="parent"
@@ -162,63 +132,15 @@
 
     <TextView
         android:id="@+id/inicio"
-        style="@style/etiquetas"
-        android:layout_width="108dp"
-        android:layout_height="17dp"
+        style="@style/etiquetas2"
+        android:layout_width="90dp"
+        android:layout_height="20dp"
         android:layout_marginTop="16dp"
         android:text="Inicia sesión"
-        android:textColor="@color/black"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.854"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/huellaRegistro" />
-
-    <!--    android:drawableLeft="@drawable/twitter"-->
-
-
-
-
-<!--    <TextView-->
-<!--        android:id="@+id/olvido"-->
-<!--        style="@style/hola"-->
-<!--        android:layout_width="180dp"-->
-<!--        android:layout_height="21dp"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:text="¿Olvido su contraseña?"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.207"-->
-<!--        android:textColor="@color/white"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/conectese" />-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/registro"-->
-<!--        style="@style/etiquetas"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:layout_width="80dp"-->
-<!--        android:layout_height="22dp"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:text="Regístrese"-->
-<!--        android:textSize="15sp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.854"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/conectese" />-->
-
-    <ImageView
-        android:id="@+id/imgOcul"
-        android:layout_width="26dp"
-        android:layout_height="26dp"
-        android:layout_marginTop="4dp"
-        android:src="@drawable/visibility"
-        app:layout_constraintEnd_toEndOf="@+id/ingresoContrasena"
-        app:layout_constraintHorizontal_bias="0.968"
-        app:layout_constraintStart_toStartOf="@+id/ingresoContrasena"
-        app:layout_constraintTop_toTopOf="@+id/ingresoContrasena" />
-
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

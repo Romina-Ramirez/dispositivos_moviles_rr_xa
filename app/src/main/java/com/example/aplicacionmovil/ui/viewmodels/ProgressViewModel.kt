@@ -4,15 +4,15 @@ import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.aplicacionmovil.logic.data.MarvelChars
-import com.example.aplicacionmovil.logic.marvelLogic.MarvelCharactersLogic
+import com.example.aplicacionmovil.logic.data.NowPlayingMovies
+import com.example.aplicacionmovil.logic.moviesLogic.NowMoviesLogic
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class ProgressViewModel : ViewModel() {
 
-    val items = MutableLiveData<List<MarvelChars>>()
+    val items = MutableLiveData<List<NowPlayingMovies>>()
     val progressState = MutableLiveData<Int>()
 
     fun processBackground(time: Long) {
@@ -38,9 +38,9 @@ class ProgressViewModel : ViewModel() {
         progressState.postValue(state1)
     }
 
-    suspend fun getMarvelChars(offset: Int, limit: Int) {
+    suspend fun getNowMovies() {
         progressState.postValue(View.VISIBLE)
-        val newItems = MarvelCharactersLogic().getAllMarvelChars(offset, limit)
+        val newItems = NowMoviesLogic().getAllNowMovies()
         items.postValue(newItems)
         progressState.postValue(View.GONE)
     }
